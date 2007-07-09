@@ -1,0 +1,5 @@
+--0.1.1--
+23-05-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Fixed a bug regarding private messages notification.
+	Whitin a private conversation, even our own messages were beeing notified
+	to us.
