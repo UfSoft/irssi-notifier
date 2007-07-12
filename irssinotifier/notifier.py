@@ -53,6 +53,7 @@ class IrssiProxyNotifier:
         self.irc.add_global_handler('part', self.handle_parts)
         self.irc.add_global_handler('quit', self.handle_quits)
         self.irc.add_global_handler('nick', self.handle_nicks)
+        self.irc.add_global_handler('action', self.handle_action_messages)
 
     def notify(self, message, header='Irssi Notifier'):
         if isinstance(message, list):
@@ -72,6 +73,11 @@ class IrssiProxyNotifier:
     def _strip_irc_codes(self, message):
         return eval(re.sub(IRC_CODES_RE, '', repr(message)))
 
+    def _addressing_ownnick(self, event):
+        nick = event.source().split('!')[0]
+        message = self._strip_irc_codes(' '.join(event.arguments()).strip())
+        return nick in message
+
     def handle_private_messages(self, connection, event):
         nick = event.source().split('!')[0]
         if nick not in self.nicks:
@@ -90,7 +96,7 @@ class IrssiProxyNotifier:
         message = self._strip_irc_codes(' '.join(event.arguments()).strip())
         notify = False
 
-        if event.source().split('!')[0] not in message: # nick not in message??
+        if not self._addressing_ownnick(event):
             # Are we addressed directly
             for nick in self.nicks:
                 if message.startswith(nick):
@@ -109,6 +115,21 @@ class IrssiProxyNotifier:
                     message
                 )
             self.notify(header + message)
+
+    def handle_action_messages(self, connection, event):
+        header = "<b>New IRC Action:</b>\n"
+        message = self._strip_irc_codes(' '.join(event.arguments()).strip())
+        nick = event.source().split('!')[0]
+        if not self._addressing_ownnick(event):
+            message = "<b>From <i>%s</i> on <tt>%s(%s)</tt>:</b>\n%s" % \
+                (
+                    nick,
+                    event.target(),
+                    connection.get_server_name().rstrip('.proxy'),
+                    '<i>%s %s</i>' % (nick, message)
+                )
+            self.notify(header + message)
+
 
     def handle_joins(self, connection, event):
         nick = event.source().split('!')[0]
