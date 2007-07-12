@@ -89,15 +89,17 @@ class IrssiProxyNotifier:
         header = "<b>New IRC Message:</b>\n"
         message = self._strip_irc_codes(' '.join(event.arguments()).strip())
         notify = False
-        # Are we addressed directly
-        for nick in self.nicks:
-            if message.startswith(nick):
-                message = message[len(nick)+1:].strip()
-                notify = True
-            # Are we instead mentioned in the message
-            elif message.find(nick) != -1:
-                notify = True
-        # Should we notify
+
+        if event.source().split('!')[0] not in message: # nick not in message??
+            # Are we addressed directly
+            for nick in self.nicks:
+                if message.startswith(nick):
+                    message = message[len(nick)+1:].strip()
+                    notify = True
+                    # Are we instead mentioned in the message
+                elif message.find(nick) != -1:
+                    notify = True
+
         if notify:
             message = "<b>From <i>%s</i> on <tt>%s(%s)</tt>:</b>\n%s" % \
                 (
@@ -148,16 +150,15 @@ class IrssiProxyNotifier:
     def connect(self):
         for server, port, nick in self.proxies:
             self.nicks.append(nick)
-
             try:
-                connection = self.irc.server().connect(
+                self.connection = self.irc.server().connect(
                     server,
                     port,
                     nick,
                     username = self.name,
                     password = self.passwd
                 )
-                if connection.connected:
+                if self.connection.connected:
                     self.notify(
                         "<b>Connection Sucessfull:</b>\n" + \
                         "To irssi proxy on %s:%s" % ( server, port )
@@ -167,7 +168,6 @@ class IrssiProxyNotifier:
                         "<b>Connection Failed:</b>\n" + \
                         "Failed to connect to %s:%s" % ( server, port )
                     )
-                self.connection = connection
             except irclib.ServerConnectionError, error:
                 print error
                 sys.exit(1)
