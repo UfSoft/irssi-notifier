@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 2 2007-07-09 17:20:18Z s0undt3ch $
+# $Id: setup.py 3 2007-07-12 07:56:51Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-07-09 18:20:18 +0100 (Mon, 09 Jul 2007) $
-#             $Rev: 2 $
+# $LastChangedDate: 2007-07-12 08:56:51 +0100 (Thu, 12 Jul 2007) $
+#             $Rev: 3 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -36,7 +36,7 @@ except:
     print "On Debian:"
     print "  sudo apt-get install python-gtk2"
     sys.exit(1)
-    
+
 import irssinotifier
 from setuptools import setup
 

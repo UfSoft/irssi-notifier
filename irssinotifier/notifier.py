@@ -33,7 +33,6 @@ IRC_CODES_RE = re.compile(
     re.IGNORECASE
 )
 
-#irclib.DEBUG = True
 class IrssiProxyNotifier:
 
     def __init__(self,passwd, name='', timeout=5, proxies=[], friends=[]):

@@ -90,8 +90,14 @@ class IrssiProxyNotifierStartup:
             help = "Write the options to the configuration file "
             "'~/.irssinotifier'"
             )
+        parser.add_option(
+            '--debug',
+            action='store_true',
+            default=False,
+            dest='debug',
+            help='Output IrcLib debug messages(extremely verbose)')
         self.parser = parser
-        
+
     def parse_args(self, configfile='~/.irssinotifier'):
         """First parse the user's configuration file for options, if available
         make them the defaults for the parser
@@ -119,7 +125,7 @@ class IrssiProxyNotifierStartup:
                 if opts:
                     self.parser.set_defaults(**opts)
         return self.parser.parse_args()
-        
+
     def run(self):
         (options, args) = self.parse_args()
         if options.configfile:
@@ -127,7 +133,11 @@ class IrssiProxyNotifierStartup:
             (options, args) = self.parse_args(configfile=options.configfile)
         else:
             options.configfile = '~/.irssinotifier'
-            
+
+        if options.debug:
+            import irclib
+            irclib.DEBUG = True
+
         proxies = []
         for proxy in options.proxies:
             t = proxy.split(':')
@@ -151,9 +161,9 @@ class IrssiProxyNotifierStartup:
         for friend in options.friends:
             if friend not in friends:
                 friends.append(friend)
-                
+
         timeout = options.timeout * 1000
-                
+
         if options.write_configs:
             print "Writing configuration to %r ..." % options.configfile
             cfgfile = os.path.expanduser(options.configfile)
@@ -182,7 +192,7 @@ class IrssiProxyNotifierStartup:
                 config.set('main', 'timeout', str(options.timeout))
                 print 'OK'
             else:
-                print 'no %r option set!' % 'timeout'            
+                print 'no %r option set!' % 'timeout'
             print 'friends\t...',
             if friends:
                 config.set('main', 'friends', ' '.join(friends))
@@ -192,16 +202,16 @@ class IrssiProxyNotifierStartup:
             config.write(cfgfile)
             print "Done!"
             sys.exit(1)
-            
+
         if not options.passwd:
             self.parser.error("You must provide the irssi-proxy password")
-            
+
         if not options.proxies:
             self.parser.error(
                 "You must pass at least one irssi-proxy addr:port"
             )
-            
-        
+
+
         notifier = IrssiProxyNotifier(
             options.passwd,
             name=options.name,
@@ -215,7 +225,7 @@ class IrssiProxyNotifierStartup:
         except KeyboardInterrupt:
             notifier.quit()
             sys.exit(1)
-        
+
 def main():
     ipn = IrssiProxyNotifierStartup()
     ipn.run()
