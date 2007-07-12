@@ -90,6 +90,15 @@ class IrssiProxyNotifierStartup:
             help = "Write the options to the configuration file "
             "'~/.irssinotifier'"
             )
+        # This option is the charset to fallback to when text received is not
+        # in UTF-8.
+        parser.add_option(
+            '--fallback-charset', '-c',
+            dest = 'charset',
+            default = 'latin-1',
+            help = "The charset to fallback to when messages received are not"
+                   "in UTF-8. Default: '%default' "
+        )
         parser.add_option(
             '--debug',
             action='store_true',
@@ -217,12 +226,13 @@ class IrssiProxyNotifierStartup:
             name=options.name,
             timeout=timeout,
             proxies=proxies,
-            friends=friends
+            friends=friends,
+            charset=options.charset
         )
         notifier.connect()
         try:
             notifier.start()
-        except KeyboardInterrupt:
+        finally:
             notifier.quit()
             sys.exit(1)
 

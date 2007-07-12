@@ -28,19 +28,22 @@ except Exception, error:
 pygtk.require('2.0')
 
 IRC_CODES_RE = re.compile(
-    ur'(\\x16|\\x02|\\x1f|\\x0f|\\x[a|c]\d{1}|' + \
+    #ur'(\\x16|\\x02|\\x1f|\\x0f|\\x[a|c]\d{1}|' + \
+    ur'(\\x02|\\x07|\\x0f|\\x16|\\1d|\\1f|' + \
     ur'\\x03((\d{1,2},\d{1,2})|(\d{1,2}))?)',
     re.IGNORECASE
 )
 
 class IrssiProxyNotifier:
 
-    def __init__(self,passwd, name='', timeout=5, proxies=[], friends=[]):
+    def __init__(self,passwd, name='', timeout=5, proxies=[], friends=[],
+                 charset='latin1'):
         self.passwd = passwd
         self.name = name
         self.timeout = timeout
         self.proxies = proxies
         self.friends = friends
+        self.charset = charset
         self.irc = irclib.IRC()
         self.nicks = []
         # We should only need to handle these
@@ -54,6 +57,13 @@ class IrssiProxyNotifier:
     def notify(self, message, header='Irssi Notifier'):
         if isinstance(message, list):
             message = ' '.join(message).strip()
+        # First we try UTF-8. If the message is not valid, then we try the
+        # default fallback charset.
+        try:
+            message = unicode(message, 'utf-8')
+        except UnicodeDecodeError:
+            message = unicode(message, self.charset)
+
         uri = os.path.join(os.path.dirname(__file__), 'irssi_mini.png')
         notification = pynotify.Notification(header, message.strip(), uri)
         notification.set_timeout(self.timeout)
@@ -157,14 +167,21 @@ class IrssiProxyNotifier:
                         "<b>Connection Failed:</b>\n" + \
                         "Failed to connect to %s:%s" % ( server, port )
                     )
+                self.connection = connection
             except irclib.ServerConnectionError, error:
                 print error
                 sys.exit(1)
 
     def start(self):
-        self.notify("Now Listening...")
-        self.irc.process_forever()
+        self.process_unless_disconnected()
+
+    def process_unless_disconnected(self):
+        while self.connection.is_connected():
+            self.irc.process_once(0.2)
+        self.notify("Disconnected from server")
+        print "Disconnected from server"
+        self.quit()
+        sys.exit(1)
 
     def quit(self):
         self.irc.disconnect_all()
-        self.notify("Exited")
