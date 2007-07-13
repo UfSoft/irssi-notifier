@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 7 2007-07-13 09:58:26Z s0undt3ch $
+# $Id: parser.py 8 2007-07-13 14:23:18Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-07-13 10:58:26 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 7 $
+# $LastChangedDate: 2007-07-13 15:23:18 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 8 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -18,7 +18,7 @@ import sys
 from optparse import OptionParser
 import ConfigParser
 from irssinotifier import __version__ as VERSION
-from irssinotifier.notifier import IrssiProxyNotifier
+from irssinotifier.translation import *
 
 class IrssiProxyNotifierStartup:
     def __init__(self):
@@ -114,9 +114,15 @@ class IrssiProxyNotifierStartup:
         parser.add_option(
             '--fallback-charset', '-c',
             dest = 'charset',
-            default = 'latin-1',
+            default = None,
             help = "The charset to fallback to when messages received are not"
                    "in UTF-8. Default: '%default' "
+        )
+        parser.add_option(
+            '--language', '-l',
+            dest='language',
+            default='en',
+            help="Use the specified language translation. Default: %default"
         )
         parser.add_option(
             '--write-configs', '-W',
@@ -177,6 +183,11 @@ class IrssiProxyNotifierStartup:
         if options.debug:
             import irclib
             irclib.DEBUG = True
+
+        if options.charset:
+            charset = options.charset
+        else:
+            charset = 'utf-8'
 
         proxies = []
         for proxy in options.proxies:
@@ -276,6 +287,9 @@ class IrssiProxyNotifierStartup:
                 "You must pass at least one irssi-proxy addr:port"
             )
 
+        set_lang(options.language, charset)
+        # Late import so translations are not ignored
+        from irssinotifier.notifier import IrssiProxyNotifier
 
         notifier = IrssiProxyNotifier(
             options.passwd,
@@ -289,11 +303,18 @@ class IrssiProxyNotifierStartup:
             bitlbee=options.bitlbee
         )
         notifier.connect()
-        try:
-            notifier.start()
-        finally:
-            notifier.quit()
-            sys.exit(1)
+        if options.debug:
+            try:
+                notifier.start()
+            except KeyboardInterrupt:
+                notifier.quit()
+                sys.exit(1)
+        else:
+            try:
+                notifier.start()
+            finally:
+                notifier.quit()
+                sys.exit(1)
 
 def main():
     ipn = IrssiProxyNotifierStartup()

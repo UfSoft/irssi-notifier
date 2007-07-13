@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 7 2007-07-13 09:58:26Z s0undt3ch $
+# $Id: notifier.py 8 2007-07-13 14:23:18Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-13 10:58:26 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 7 $
+# $LastChangedDate: 2007-07-13 15:23:18 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 8 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -29,6 +29,8 @@ except Exception, error:
     print error
 
 pygtk.require('2.0')
+
+#from irssinotifier.translation import _
 
 IRC_CODES_RE = re.compile(
     #ur'(\\x16|\\x02|\\x1f|\\x0f|\\x[a|c]\d{1}|' + \
@@ -71,15 +73,19 @@ class IrssiProxyNotifier:
             self.irc.add_global_handler('unaway', self.handle_away)
             self.tracker = xss.IdleTracker(idle_threshold=x_away)
 
-    def notify(self, message, header='Irssi Notifier'):
+    # TRANSLATOR: No need to translate the app name, just leave it blank
+    def notify(self, message, header=_('Irssi Notifier')):
         if isinstance(message, list):
-            message = ' '.join(message).strip()
+            message = u' '.join(message).strip()
+
+        print repr(message)
         # First we try UTF-8. If the message is not valid, then we try the
         # default fallback charset.
-        try:
-            message = unicode(message, 'utf-8')
-        except UnicodeDecodeError:
-            message = unicode(message, self.charset)
+        if not isinstance(message, unicode):
+            try:
+                message = unicode(message, 'utf-8')
+            except UnicodeDecodeError:
+                message = unicode(message, self.charset)
 
         uri = os.path.join(os.path.dirname(__file__), 'irssi_mini.png')
         notification = pynotify.Notification(header, message.strip(), uri)
@@ -97,18 +103,17 @@ class IrssiProxyNotifier:
     def handle_private_messages(self, connection, event):
         nick = event.source().split('!')[0]
         if nick not in self.nicks:
-            header = "<b>New Private IRC Message:</b>\n"
+            header = _("<b>New Private Message:</b>\n")
             message = self._strip_irc_codes(' '.join(event.arguments()).strip())
-            message = "<b>From <i>%s</i><tt>(%s)</tt>:</b>\n%s" % \
-                    (
-                        event.source().split('!')[0],
-                        connection.get_server_name().rstrip('.proxy'),
-                        message
-                    )
+            message = _("<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:"
+                        "</b>\n%(message)s") % \
+                    {'nick': event.source().split('!')[0],
+                     'server': connection.get_server_name().rstrip('.proxy'),
+                     'message': message }
             self.notify(header + message)
 
     def handle_public_messages(self, connection, event):
-        header = "<b>New IRC Message:</b>\n"
+        header = _("<b>New Message:</b>\n")
         message = self._strip_irc_codes(' '.join(event.arguments()).strip())
         notify = False
 
@@ -123,65 +128,68 @@ class IrssiProxyNotifier:
                     notify = True
 
         if notify:
-            message = "<b>From <i>%s</i> on <tt>%s(%s)</tt>:</b>\n%s" % \
-                (
-                    event.source().split('!')[0],
-                    event.target(),
-                    connection.get_server_name().rstrip('.proxy'),
-                    message
-                )
+            message = _("<b>From <i>%(nick)s</i> on <tt>%(channel)"
+                        "s(%(server)s)</tt>:</b>\n%(message)s") % \
+                {'nick': event.source().split('!')[0],
+                 'channel': event.target(),
+                 'server': connection.get_server_name().rstrip('.proxy'),
+                 'message': message }
             self.notify(header + message)
 
     def handle_action_messages(self, connection, event):
-        header = "<b>New IRC Action:</b>\n"
+        header = _("<b>New IRC Action:</b>\n")
         message = self._strip_irc_codes(' '.join(event.arguments()).strip())
-        nick = event.source().split('!')[0]
+        notify = False
         if not self._addressing_ownnick(event):
-            message = "<b>From <i>%s</i> on <tt>%s(%s)</tt>:</b>\n%s" % \
-                (
-                    nick,
-                    event.target(),
-                    connection.get_server_name().rstrip('.proxy'),
-                    '<i>%s %s</i>' % (nick, message)
-                )
+            for nick in self.nicks:
+                if nick in message:
+                    notify = True
+
+        if notify:
+            message = _("<b>From <i>%(nick)s</i> on <tt>%(channel)s"
+                        "(%(server)s)</tt>:</b>\n%(message)s") % \
+                {'nick': event.source().split('!')[0],
+                 'channel': event.target(),
+                 'server': connection.get_server_name().rstrip('.proxy'),
+                 'message': '<i>%s %s</i>' % (event.source().split('!')[0],
+                                              message)}
             self.notify(header + message)
 
 
     def handle_joins(self, connection, event):
         nick = event.source().split('!')[0]
         if nick in self.friends:
-            header = '<b>Known Friend Has Joined:</b>\n'
-            message = '%s joined %s on %s' % (
-                nick,
-                event.target(),
-                connection.get_server_name().rstrip('.proxy')
-            )
+            header = _('<b>Known Friend Has Joined:</b>\n')
+            message = _('%(friend)s joined %(channel)s on %(server)s') % {
+                'nick': nick,
+                'channel': event.target(),
+                'server': connection.get_server_name().rstrip('.proxy') }
             self.notify( header + message )
 
     def handle_parts(self, connection, event):
         nick = event.source().split('!')[0]
         if nick in self.friends:
-            header = '<b>Known Friend Has Parted:</b>\n'
-            message = '%s parted %s on %s' % (
-                nick,
-                event.target(),
-                connection.get_server_name().rstrip('.proxy')
-            )
+            header = _('<b>Known Friend Has Parted:</b>\n')
+            message = _('%(nick)s parted %(channel)s on %(server)s') % {
+                'nick': nick,
+                'channel': event.target(),
+                'server': connection.get_server_name().rstrip('.proxy')}
             self.notify( header + message )
 
     def handle_quits(self, connection, event):
         nick = event.source().split('!')[0]
         if nick in self.friends:
-            self.notify("%r has quit!" % nick)
+            self.notify(_("%(nick)r has quit!") % {'nick': nick})
 
     def handle_nicks(self, connection, event):
-        header = "<b>Known Friend Changed Nick:</b>\n"
+        header = _("<b>Known Friend Changed Nick:</b>\n")
         newnick = event.target()
         oldnick = event.source().split('!')[0]
         if (oldnick or newnick) in self.friends:
-            message = "From %r to %r on %r" % (
-                oldnick, newnick, connection.get_server_name().rstrip('.proxy')
-            )
+            message = _("From %(oldnick)r to %(newnick)r on %(server)r") % {
+                'oldnick': oldnick,
+                'newnick': newnick,
+                'server': connection.get_server_name().rstrip('.proxy')}
             self.notify( header + message )
 
     # This function handles modes changes to know who has come online on
@@ -193,8 +201,9 @@ class IrssiProxyNotifier:
             modes = irclib.parse_channel_modes(' '.join(event.arguments()))
             for mode in modes:
                 if mode[1] == "v" and mode[0] == "+":
-                    header = '<b>Contact Is Online</b>\n'
-                    message = '%s has come online on bitlbee' % ( mode[2] )
+                    header = _('<b>Contact Is Online</b>\n')
+                    message = _('%(nick)s has come online on bitlbee') % {
+                        'nick': mode[2] }
                     self.notify( header + message )
 
     # This functions handles updates the away attributes according to what the
@@ -208,10 +217,10 @@ class IrssiProxyNotifier:
 
     # These two functions set the away status
     def setaway(self, reason):
-        self.connection.send_raw("AWAY :" + reason)
+        self.connection.send_raw(_("AWAY: %s") % reason)
 
     def unaway(self):
-        self.connection.send_raw("AWAY")
+        self.connection.send_raw(_("AWAY"))
 
     # This functions checks if X is idle. If yes, and if the user is not
     # already away, it puts the user in away status and remembers it. If not,
@@ -246,15 +255,14 @@ class IrssiProxyNotifier:
                     password = self.passwd
                 )
                 if self.connection.connected:
-                    self.notify(
-                        "<b>Connection Sucessfull:</b>\n" + \
-                        "To irssi proxy on %s:%s" % ( server, port )
-                    )
+                    self.notify(_("<b>Connection Sucessfull:</b>\n"
+                                  "To irssi proxy on %(server)s:%(port)s") % {
+                                    'server': server,
+                                    'port': port })
                 else:
-                    self.notify(
-                        "<b>Connection Failed:</b>\n" + \
-                        "Failed to connect to %s:%s" % ( server, port )
-                    )
+                    self.notify(_("<b>Connection Failed:</b>\nFailed to "
+                                  "connect to %(server)s:%(port)s") % \
+                                  {'server': server, 'port': port })
             except irclib.ServerConnectionError, error:
                 print error
                 sys.exit(1)
@@ -267,8 +275,8 @@ class IrssiProxyNotifier:
     def process_unless_disconnected(self):
         while self.connection.is_connected():
             self.irc.process_once(0.2)
-        self.notify("Disconnected from server")
-        print "Disconnected from server"
+        self.notify(_("Disconnected from server"))
+        print _("Disconnected from server")
         self.quit()
         sys.exit(1)
 
