@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 8 2007-07-13 14:23:18Z s0undt3ch $
+# $Id: notifier.py 13 2007-07-13 16:50:58Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-13 15:23:18 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 8 $
+# $LastChangedDate: 2007-07-13 17:50:58 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 13 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -78,7 +78,6 @@ class IrssiProxyNotifier:
         if isinstance(message, list):
             message = u' '.join(message).strip()
 
-        print repr(message)
         # First we try UTF-8. If the message is not valid, then we try the
         # default fallback charset.
         if not isinstance(message, unicode):

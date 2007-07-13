@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 8 2007-07-13 14:23:18Z s0undt3ch $
+# $Id: parser.py 13 2007-07-13 16:50:58Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-07-13 15:23:18 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 8 $
+# $LastChangedDate: 2007-07-13 17:50:58 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 13 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -122,7 +122,8 @@ class IrssiProxyNotifierStartup:
             '--language', '-l',
             dest='language',
             default='en',
-            help="Use the specified language translation. Default: %default"
+            help="Use the specified language translation. "
+                 "Available Languages: 'en', 'pt_PT'; Default: %default"
         )
         parser.add_option(
             '--write-configs', '-W',

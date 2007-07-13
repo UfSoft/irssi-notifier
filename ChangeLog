@@ -17,6 +17,7 @@ http://www.python.org/pypi/IrssiNotifier/0.1.1
 	translations included.
 	* Changed ChangeLog to be viewable as a wiki page.
 	* Version Bump
+	* Added info about available languages.
 
 
 12-07-2007: Pedro Algarvio <ufs@ufsoft.org>
