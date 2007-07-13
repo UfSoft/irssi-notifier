@@ -1,4 +1,7 @@
 include ChangeLog
 include irssinotifier/*.png
+include irssinotifier/i18n/*/LC_MESSAGES/*.mo
+exclude irssinotifier/i18n/*/LC_MESSAGES/*.po
+exclude irssinotifier/i18n/irssinotifier.pot
 exclude irssinotifier/*.xpm
 exclude irssinotifier/ui.py

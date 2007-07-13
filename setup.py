@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 8 2007-07-13 14:23:18Z s0undt3ch $
+# $Id: setup.py 11 2007-07-13 15:56:17Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-07-13 15:23:18 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 8 $
+# $LastChangedDate: 2007-07-13 16:56:17 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 11 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -66,7 +66,6 @@ setup(
     platforms = ['Anywere libnotify and python is known to run'],
     keywords = ['irssi', 'visual notification', 'notification'],
     packages = ['irssinotifier'],
-    package_data={'irssinotifier': ['i18n/*/LC_MESSAGES/*.mo']},
     zip_safe = False,
     # PyXSS tries to find SWIG on system, if not found installs the pre SWIG
     # version, should we warn the user about this?
