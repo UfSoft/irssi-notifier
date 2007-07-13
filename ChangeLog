@@ -1,5 +1,24 @@
 --0.1.1--
+13-07-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Fixed #6, user was getting notified of all ACTION messages, not just
+	those addressed to him.
+	* Fully implemented David Durrleman's <dualmoo@gmail.com> patch which adds
+	support for bitlbee.
+	* Fixed #5, IrssiNotification is now translatable. English and Portuguese
+	translations included.
+
+12-07-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Added support for the user to provide a fallback charset in case he's
+	not using UTF-8. (Thanks David Durrleman <dualmoo@gmail.com>)
+	* Fixed #3, user no longer get's notified of his own messages if he refers
+	to his own nick.
+	* Added a command line argument(--debug) so that we get the debug messages
+	from IRCLib.
+	* Added Support for IRC ACTION messages.
+
 23-05-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Fixed a bug regarding private messages notification.
 	Whitin a private conversation, even our own messages were beeing notified
 	to us.
+
+
