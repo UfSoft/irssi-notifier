@@ -1,4 +1,13 @@
---0.1.1--
+Irssi Notification 0.2.0 (?/May/2007)
+http://irssinotifier.ufsoft.org:8080/svn/tags/0.2.0
+
+?-07-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Version 0.2.0 Released
+
+----
+Irssi Notification 0.1.1 (23/May/2007)
+http://www.python.org/pypi/IrssiNotifier/0.1.1
+
 13-07-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Fixed #6, user was getting notified of all ACTION messages, not just
 	those addressed to him.
@@ -6,19 +15,22 @@
 	support for bitlbee.
 	* Fixed #5, IrssiNotification is now translatable. English and Portuguese
 	translations included.
+	* Changed ChangeLog to be viewable as a wiki page.
+	* Version Bump
+
 
 12-07-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Added support for the user to provide a fallback charset in case he's
 	not using UTF-8. (Thanks David Durrleman <dualmoo@gmail.com>)
 	* Fixed #3, user no longer get's notified of his own messages if he refers
 	to his own nick.
-	* Added a command line argument(--debug) so that we get the debug messages
+	* Added a command line argument(`--debug`) so that we get the debug messages
 	from IRCLib.
 	* Added Support for IRC ACTION messages.
+
 
 23-05-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Fixed a bug regarding private messages notification.
 	Whitin a private conversation, even our own messages were beeing notified
 	to us.
-
 
