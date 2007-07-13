@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id$
+# $Id: __init__.py 7 2007-07-13 09:58:26Z s0undt3ch $
 # =============================================================================
-#             $URL$
-# $LastChangedDate$
-#             $Rev$
-#   $LastChangedBy$
+#             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/__init__.py $
+# $LastChangedDate: 2007-07-13 10:58:26 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 7 $
+#   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #

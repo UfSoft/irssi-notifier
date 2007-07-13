@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id$
+# $Id: notifier.py 7 2007-07-13 09:58:26Z s0undt3ch $
 # =============================================================================
-#             $URL$
-# $LastChangedDate$
-#             $Rev$
-#   $LastChangedBy$
+#             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
+# $LastChangedDate: 2007-07-13 10:58:26 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 7 $
+#   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -16,9 +16,12 @@
 import re
 import os
 import sys
+import xss          # This is used to know how long X has been idle
+                    # http://bebop.bigasterisk.com/python
 import pygtk
 import irclib
 import pynotify
+import threading    # This package is used to setup a timer
 try:
     pynotify.init("Markup")
 except Exception, error:
@@ -37,12 +40,16 @@ IRC_CODES_RE = re.compile(
 class IrssiProxyNotifier:
 
     def __init__(self,passwd, name='', timeout=5, proxies=[], friends=[],
-                 charset='latin1'):
+                 x_away=0, away_reason="", bitlbee=False, charset='latin1'):
         self.passwd = passwd
         self.name = name
         self.timeout = timeout
         self.proxies = proxies
         self.friends = friends
+        self.x_away = x_away
+        self.away_reason = away_reason
+        self.bitlbee = bitlbee
+        self.timer = None
         self.charset = charset
         self.irc = irclib.IRC()
         self.nicks = []
@@ -54,6 +61,15 @@ class IrssiProxyNotifier:
         self.irc.add_global_handler('quit', self.handle_quits)
         self.irc.add_global_handler('nick', self.handle_nicks)
         self.irc.add_global_handler('action', self.handle_action_messages)
+        self.irc.add_global_handler('mode', self.handle_modes) # for bitlbee
+        #  This sets up handlers for away events, and loads the X idle tracker
+        if self.x_away:
+            self.idle = False
+            self.away = False
+            self.awaybecauseidle = False
+            self.irc.add_global_handler('nowaway', self.handle_away)
+            self.irc.add_global_handler('unaway', self.handle_away)
+            self.tracker = xss.IdleTracker(idle_threshold=x_away)
 
     def notify(self, message, header='Irssi Notifier'):
         if isinstance(message, list):
@@ -168,6 +184,56 @@ class IrssiProxyNotifier:
             )
             self.notify( header + message )
 
+    # This function handles modes changes to know who has come online on
+    # bitlbee. A friend is online if he has mode +v on the &bitlbee channel.
+    def handle_modes(self, connection, event):
+        sourcenick = event.source().split('!')[0]
+        if (self.bitlbee and event.target() == "&bitlbee"
+        and sourcenick == "root"):
+            modes = irclib.parse_channel_modes(' '.join(event.arguments()))
+            for mode in modes:
+                if mode[1] == "v" and mode[0] == "+":
+                    header = '<b>Contact Is Online</b>\n'
+                    message = '%s has come online on bitlbee' % ( mode[2] )
+                    self.notify( header + message )
+
+    # This functions handles updates the away attributes according to what the
+    # server tells us.
+    def handle_away(self, connection, event):
+        if event.eventtype() == "nowaway":
+            self.away = True
+        elif event.eventtype() == "unaway":
+            self.away = False
+            self.awaybecauseidle = False
+
+    # These two functions set the away status
+    def setaway(self, reason):
+        self.connection.send_raw("AWAY :" + reason)
+
+    def unaway(self):
+        self.connection.send_raw("AWAY")
+
+    # This functions checks if X is idle. If yes, and if the user is not
+    # already away, it puts the user in away status and remembers it. If not,
+    # and if the user is away and he is away because he was idle, then it puts
+    # the user back from away status. It also creates a timer to check if X is
+    # idle at a later time. The best timeout is given by PyXSS, so we use it.
+    def check_idle(self):
+        info = self.tracker.check_idle()
+        if info[0] == 'idle' and not self.idle:
+            if not self.away:
+                self.setaway(self.away_reason)
+                self.awaybecauseidle = True
+            self.idle = True
+        elif info[0] == 'unidle' and self.idle:
+            if self.awaybecauseidle:
+                self.unaway()
+                self.awaybecauseidle = False
+            self.idle = False
+        self.timer = threading.Timer(info[1]/1000, self.check_idle)
+        self.timer.start()
+
+
     def connect(self):
         for server, port, nick in self.proxies:
             self.nicks.append(nick)
@@ -194,6 +260,8 @@ class IrssiProxyNotifier:
                 sys.exit(1)
 
     def start(self):
+        if self.x_away:
+            self.check_idle()
         self.process_unless_disconnected()
 
     def process_unless_disconnected(self):
@@ -206,3 +274,5 @@ class IrssiProxyNotifier:
 
     def quit(self):
         self.irc.disconnect_all()
+        if self.timer:
+            self.timer.cancel() # We kill the timer before exiting.

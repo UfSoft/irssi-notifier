@@ -1,2 +1,4 @@
 include ChangeLog
 include irssinotifier/*.png
+exclude irssinotifier/*.xpm
+exclude irssinotifier/ui.py

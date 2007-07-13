@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id$
+# $Id: parser.py 7 2007-07-13 09:58:26Z s0undt3ch $
 # =============================================================================
-#             $URL$
-# $LastChangedDate$
-#             $Rev$
-#   $LastChangedBy$
+#             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
+# $LastChangedDate: 2007-07-13 10:58:26 +0100 (Fri, 13 Jul 2007) $
+#             $Rev: 7 $
+#   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -82,14 +82,33 @@ class IrssiProxyNotifierStartup:
             default = 5,
             help = "Notification pop-up timeout (in seconds). Default: %default"
         )
+        # These options allow the user to be automatically put in away mode
+        # when X has been idle for some time.
         parser.add_option(
-            '--write-configs', '-W',
+            '--x-away', '-X',
+            type = int,
+            dest = 'x_away',
+            metavar = 'SECONDS',
+            default = 0,
+            help = "Enable auto-away according to X idle time (0 to disable). "
+            "Default: %default"
+        )
+        parser.add_option(
+            '--x-away-reason', '-R',
+            dest = 'away_reason',
+            default = 'inactivity',
+            help = "The away reason to use in case of X inactivity. Default:"
+            "'%default' "
+        )
+        # If this option is set, the server is known to be of bitlbee type,
+        # and we will check &bitlbee to see if friends come online.
+        parser.add_option(
+            '--bitlbee', '-b',
             action = 'store_true',
             default = False,
-            dest = 'write_configs',
-            help = "Write the options to the configuration file "
-            "'~/.irssinotifier'"
-            )
+            dest = 'bitlbee',
+            help = "Enable notifications of away/joins/quits on a bitlbee server"
+        )
         # This option is the charset to fallback to when text received is not
         # in UTF-8.
         parser.add_option(
@@ -100,11 +119,19 @@ class IrssiProxyNotifierStartup:
                    "in UTF-8. Default: '%default' "
         )
         parser.add_option(
+            '--write-configs', '-W',
+            action = 'store_true',
+            default = False,
+            dest = 'write_configs',
+            help = "Write the options to the configuration file "
+            "'~/.irssinotifier'"
+        )
+        parser.add_option(
             '--debug',
             action='store_true',
             default=False,
             dest='debug',
-            help='Output IrcLib debug messages(extremely verbose)')
+            help='Output IRCLib debug messages(extremely verbose)')
         self.parser = parser
 
     def parse_args(self, configfile='~/.irssinotifier'):
@@ -118,15 +145,19 @@ class IrssiProxyNotifierStartup:
             if config.has_section('main'):
                 opts = {}
                 for opt in (
-                    'nick', 'passwd', 'name', 'proxies', 'friends', 'timeout'):
+                    'nick', 'passwd', 'name', 'proxies', 'friends', 'timeout',
+                    'x_away', 'away_reason', 'charset', 'bitlbee'):
                     try:
                         if opt in ('proxies', 'friends'):
                             opts[opt] = config.get('main', opt).split()
-                        elif opt == 'timeout':
+                        elif opt in ('timeout', 'x_away'):
                             try:
-                                opts[opt] = config.getint('main', 'timeout')
+                                opts[opt] = config.getint('main', opt)
                             except ValueError:
-                                opts[opt] = int(config.getfloat('main', 'timeout'))
+                                opts[opt] = int(config.getfloat('main',
+                                                                'timeout'))
+                        elif opt == 'bitlbee':
+                            opts[opt] = config.getboolean('main', 'bitlbee')
                         else:
                             opts[opt] = config.get('main', opt)
                     except ConfigParser.NoOptionError:
@@ -172,6 +203,8 @@ class IrssiProxyNotifierStartup:
                 friends.append(friend)
 
         timeout = options.timeout * 1000
+        # We need an ms value.
+        x_away = options.x_away * 1000
 
         if options.write_configs:
             print "Writing configuration to %r ..." % options.configfile
@@ -202,12 +235,35 @@ class IrssiProxyNotifierStartup:
                 print 'OK'
             else:
                 print 'no %r option set!' % 'timeout'
+            print 'x-away\t...',
+            if options.x_away:
+                config.set('main', 'x_away', str(options.x_away))
+                print 'OK'
+            else:
+                print 'no %r option set!' % 'x-away'
+            print 'reason\t...',
+            if options.away_reason:
+                config.set('main', 'away_reason', options.away_reason)
+                print 'OK'
+            else:
+                print 'no %r option set!' % 'x-away-reason'
+            if options.charset:
+                config.set('main', 'charset', options.charset)
+                print 'OK'
+            else:
+                print 'no %r option set!' % 'fallback-charset'
             print 'friends\t...',
             if friends:
                 config.set('main', 'friends', ' '.join(friends))
                 print 'OK'
             else:
                 print 'no %r option set!' % 'friends'
+            print 'bitlbee\t...',
+            if options.bitlbee:
+                config.set('main', 'bitlbee', str(options.bitlbee))
+                print 'OK'
+            else:
+                print 'no %r option set!' % 'bitlbee'
             config.write(cfgfile)
             print "Done!"
             sys.exit(1)
@@ -227,7 +283,10 @@ class IrssiProxyNotifierStartup:
             timeout=timeout,
             proxies=proxies,
             friends=friends,
-            charset=options.charset
+            charset=options.charset,
+            x_away=x_away,
+            away_reason=options.away_reason,
+            bitlbee=options.bitlbee
         )
         notifier.connect()
         try:
