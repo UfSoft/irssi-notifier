@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 11 2007-07-13 15:56:17Z s0undt3ch $
+# $Id: setup.py 14 2007-07-21 11:24:12Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-07-13 16:56:17 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 11 $
+# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
+#             $Rev: 14 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -62,7 +62,7 @@ setup(
     author_email = irssinotifier.__email__,
     description = "Irssi Real Time Remote Visual Notification.",
     long_description = LONGDESC,
-    url = 'http://irssinotifier.ufsoft.org:8080',
+    url = irssinotifier.__url__,
     platforms = ['Anywere libnotify and python is known to run'],
     keywords = ['irssi', 'visual notification', 'notification'],
     packages = ['irssinotifier'],
@@ -76,11 +76,13 @@ setup(
     entry_points = """
     [console_scripts]
     irssi-notifier = irssinotifier.parser:main
+
     [distutils.commands]
     extract = babel.messages.frontend:extract_messages
     init = babel.messages.frontend:init_catalog
     compile = babel.messages.frontend:compile_catalog
     update = babel.messages.frontend:update_catalog
+
     """,
     #irssi-notifier-gui = irssinotifier.ui:run_tray_app
     #""",
@@ -95,5 +97,11 @@ setup(
         'Topic :: Communications :: Chat :: Internet Relay Chat',
         'Topic :: Desktop Environment',
         'Topic :: Utilities'
-    ]
+    ],
+    message_extractors = {
+        'irssinotifier': [
+            ('**.py',    'python', None),
+            ('**.glade', 'glade',  None),
+        ]
+    }
 )

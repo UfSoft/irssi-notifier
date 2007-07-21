@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 13 2007-07-13 16:50:58Z s0undt3ch $
+# $Id: parser.py 14 2007-07-21 11:24:12Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-07-13 17:50:58 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 13 $
+# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
+#             $Rev: 14 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -139,6 +139,12 @@ class IrssiProxyNotifierStartup:
             default=False,
             dest='debug',
             help='Output IRCLib debug messages(extremely verbose)')
+        parser.add_option(
+            '--gui',
+            action = 'store_true',
+            default = False,
+            dest = 'gui',
+            help = 'run graphical user interface')
         self.parser = parser
 
     def parse_args(self, configfile='~/.irssinotifier'):
@@ -171,6 +177,7 @@ class IrssiProxyNotifierStartup:
                         continue
                 if opts:
                     self.parser.set_defaults(**opts)
+        self.cfgfile = cfgfile
         return self.parser.parse_args()
 
     def run(self):
@@ -288,7 +295,7 @@ class IrssiProxyNotifierStartup:
                 "You must pass at least one irssi-proxy addr:port"
             )
 
-        set_lang(options.language, charset)
+        set_lang(options.language, charset, options.gui)
         # Late import so translations are not ignored
         from irssinotifier.notifier import IrssiProxyNotifier
 
@@ -304,18 +311,33 @@ class IrssiProxyNotifierStartup:
             bitlbee=options.bitlbee
         )
         notifier.connect()
-        if options.debug:
-            try:
-                notifier.start()
-            except KeyboardInterrupt:
-                notifier.quit()
-                sys.exit(1)
+        if options.gui:
+            from irssinotifier.ui import TrayApp
+            ta = TrayApp(config=options, cfgfile=self.cfgfile,
+                         notifier=notifier)
+            if options.debug:
+                try:
+                    ta.main()
+                except KeyboardInterrupt:
+                    ta.exit(None)
+            else:
+                try:
+                    ta.main()
+                finally:
+                    ta.exit(None)
         else:
-            try:
-                notifier.start()
-            finally:
-                notifier.quit()
-                sys.exit(1)
+            if options.debug:
+                try:
+                    notifier.start()
+                except KeyboardInterrupt:
+                    notifier.quit()
+                    sys.exit(1)
+            else:
+                try:
+                    notifier.start()
+                finally:
+                    notifier.quit()
+                    sys.exit(1)
 
 def main():
     ipn = IrssiProxyNotifierStartup()

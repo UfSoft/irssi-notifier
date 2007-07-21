@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 13 2007-07-13 16:50:58Z s0undt3ch $
+# $Id: notifier.py 14 2007-07-21 11:24:12Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-13 17:50:58 +0100 (Fri, 13 Jul 2007) $
-#             $Rev: 13 $
+# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
+#             $Rev: 14 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -86,7 +86,7 @@ class IrssiProxyNotifier:
             except UnicodeDecodeError:
                 message = unicode(message, self.charset)
 
-        uri = os.path.join(os.path.dirname(__file__), 'irssi_mini.png')
+        uri = os.path.join(os.path.dirname(__file__), 'data', 'irssi_mini.png')
         notification = pynotify.Notification(header, message.strip(), uri)
         notification.set_timeout(self.timeout)
         notification.show()
