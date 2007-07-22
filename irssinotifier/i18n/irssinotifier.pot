@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: IrssiNotifier 0.2.0\n"
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
-"POT-Creation-Date: 2007-07-22 18:55+0100\n"
+"POT-Creation-Date: 2007-07-22 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 0.9dev-r239\n"
 
 #. No need to translate the app name, just leave it blank
-#: irssinotifier/notifier.py:77 irssinotifier/ui.py:34 irssinotifier/ui.py:115
+#: irssinotifier/notifier.py:77 irssinotifier/ui.py:34 irssinotifier/ui.py:134
 #: irssinotifier/data/glade/prefs.glade:8
 msgid "Irssi Notifier"
 msgstr ""
@@ -131,32 +131,32 @@ msgstr ""
 msgid "Development Site"
 msgstr ""
 
-#: irssinotifier/ui.py:216 irssinotifier/ui.py:257
+#: irssinotifier/ui.py:81
+msgid "<b><i>You need to reload application for changes to take effect.</i></b>"
+msgstr ""
+
+#: irssinotifier/ui.py:235 irssinotifier/ui.py:276
 msgid "Nick"
 msgstr ""
 
-#: irssinotifier/ui.py:239
+#: irssinotifier/ui.py:258
 msgid "Host"
 msgstr ""
 
-#: irssinotifier/ui.py:248
+#: irssinotifier/ui.py:267
 msgid "Port"
 msgstr ""
 
-#: irssinotifier/ui.py:307
+#: irssinotifier/ui.py:329
 msgid "HOST_HERE"
 msgstr ""
 
-#: irssinotifier/ui.py:308
+#: irssinotifier/ui.py:330
 msgid "PORT_HERE"
 msgstr ""
 
-#: irssinotifier/ui.py:309 irssinotifier/ui.py:319
+#: irssinotifier/ui.py:331 irssinotifier/ui.py:341
 msgid "NICK_HERE"
-msgstr ""
-
-#: irssinotifier/ui.py:337
-msgid "<b><i>You will need to reload application for language changes to take effect.</i></b>"
 msgstr ""
 
 #: irssinotifier/data/glade/prefs.glade:94
@@ -183,55 +183,55 @@ msgstr ""
 msgid "Notification Timeout:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:281 irssinotifier/data/glade/prefs.glade:531
+#: irssinotifier/data/glade/prefs.glade:282 irssinotifier/data/glade/prefs.glade:569
 msgid "seconds"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:308
+#: irssinotifier/data/glade/prefs.glade:309
 msgid "Irssi Proxy Password:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:344
+#: irssinotifier/data/glade/prefs.glade:346
 msgid "Extremely Verbose Output!!!"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:345
+#: irssinotifier/data/glade/prefs.glade:347
 msgid "Debug Mode"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:373
+#: irssinotifier/data/glade/prefs.glade:376
 msgid "Always Run Graphic Interface"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:401
+#: irssinotifier/data/glade/prefs.glade:404
 msgid "Language:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:434
+#: irssinotifier/data/glade/prefs.glade:437
 msgid "Fallback Charset:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:442
+#: irssinotifier/data/glade/prefs.glade:445
 msgid "Fallback charset in case UTF-8 is not used."
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:458
+#: irssinotifier/data/glade/prefs.glade:462
 msgid "<b>Bitlebee Settings</b>"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:476
-msgid "Away Reason:"
-msgstr ""
-
-#: irssinotifier/data/glade/prefs.glade:507
-msgid "Auto-Away (seconds):"
-msgstr ""
-
-#: irssinotifier/data/glade/prefs.glade:563
+#: irssinotifier/data/glade/prefs.glade:489
 msgid "Enable Bitlbee Notifications"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:585
+#: irssinotifier/data/glade/prefs.glade:514
+msgid "Away Reason:"
+msgstr ""
+
+#: irssinotifier/data/glade/prefs.glade:545
+msgid "Auto-Away (seconds):"
+msgstr ""
+
+#: irssinotifier/data/glade/prefs.glade:595
 msgid "Settings"
 msgstr ""
 

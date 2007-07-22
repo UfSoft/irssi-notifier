@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 15 2007-07-22 18:00:24Z s0undt3ch $
+# $Id: ui.py 16 2007-07-22 19:29:14Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-07-22 19:00:24 +0100 (Sun, 22 Jul 2007) $
-#             $Rev: 15 $
+# $LastChangedDate: 2007-07-22 20:29:14 +0100 (Sun, 22 Jul 2007) $
+#             $Rev: 16 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -75,6 +75,15 @@ class TrayApp:
         )
         self.win.set_icon(icon)
         self.about = AboutGUI()
+
+        # Add Our Hidden Reload Warning
+        vbox = self.wTree.get_widget('OtherPrefsVbox')
+        self.reload_warning = gtk.Label(_('<b><i>You need to reload '
+                                          'application for changes to take '
+                                          'effect.</i></b>'))
+        self.reload_warning.set_use_markup(True)
+        vbox.pack_end(self.reload_warning, False, False, padding=10)
+
         self.friends_treeview = self.wTree.get_widget('FriendsTreeView')
         self.proxies_treeview = self.wTree.get_widget('ProxiesTreeView')
         events = {
@@ -89,7 +98,17 @@ class TrayApp:
                                             self.friends_treeview),
             "on_RemoveFriendsButton_clicked": (self.on_RemoveFriendsButton_clicked,
                                                self.friends_treeview),
-            "on_LanguageComboBox_changed": self.on_LanguageComboBox_changed
+            "on_LanguageComboBox_changed": self.on_LanguageComboBox_changed,
+            "on_BitlbeeCheckButton_toggled": self.on_BitlbeeCheckButton_toggled,
+            "on_NotificationTimeOutSpinButton_value_changed":
+                self._add_reload_info,
+            "on_FallbackCharsetInput_key_press_event": self._add_reload_info,
+            "on_ProxyPasswdInput_key_press_event": self._add_reload_info,
+            "on_DebugModeCheckButton_toggled": self._add_reload_info,
+            "on_RunGuiCheckButton_toggled": self._add_reload_info,
+            "on_AwayReasonInput_key_press_event": self._add_reload_info,
+            "on_AutoAwaySpinButton_value_changed": self._add_reload_info,
+
         }
         self.wTree.signal_autoconnect(events)
         # Friends Tab
@@ -151,7 +170,7 @@ class TrayApp:
         return True
 
     def show_prefs(self, widget):
-        self.win.show_all()
+        self.win.show()
 
     def _get_available_locales(self):
         available_locales = []
@@ -289,7 +308,10 @@ class TrayApp:
         away_timeout.set_value(self.config.x_away)
         # Set Bitlebee Support Enabled
         bitlbee = self.wTree.get_widget('BitlbeeCheckButton')
+#        bitlbee.set_active(not self.config.bitlbee)
+#        self.on_BitlbeeCheckButton_toggled(bitlbee)
         bitlbee.set_active(self.config.bitlbee)
+#        self.on_BitlbeeCheckButton_toggled(bitlbee)
 
 
     def on_cell_edited(self, cell, path_string, new_text, model):
@@ -333,13 +355,22 @@ class TrayApp:
         # User Will need to reload app
         global LANG_UPDATED
         if LANG_UPDATED > 0:
-            box = self.wTree.get_widget('LanguageVbox')
-            label = gtk.Label(_('<b><i>You will need to reload application '
-                                'for language changes to take effect.</i></b>'))
-            label.set_use_markup(True)
-            label.show()
-            box.pack_end(label, False, False, padding=5)
+            self._add_reload_info()
         LANG_UPDATED += 1
+
+    def on_BitlbeeCheckButton_toggled(self, checkbox):
+        if checkbox.get_active():
+            self.wTree.get_widget('AwayReasonHbox').show()
+            self.wTree.get_widget('AutoAwayHbox').show()
+        else:
+            self.wTree.get_widget('AwayReasonHbox').hide()
+            self.wTree.get_widget('AutoAwayHbox').hide()
+
+        self._add_reload_info()
+
+    def _add_reload_info(self, *args):
+        if not self.reload_warning.props.visible:
+            self.reload_warning.show()
 
     def on_OkButton_clicked(self, button):
         friends = [
