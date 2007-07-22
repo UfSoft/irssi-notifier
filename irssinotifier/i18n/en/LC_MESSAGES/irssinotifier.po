@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
 "POT-Creation-Date: 2007-07-20 18:08+0100\n"
-"PO-Revision-Date: 2007-07-22 21:29+0100\n"
+"PO-Revision-Date: 2007-07-22 22:13+0100\n"
 "Last-Translator: Pedro Algarvio <ufs@ufsoft.org>\n"
 "Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Generated-By: Babel 0.9dev-r239\n"
 
 #. No need to translate the app name, just leave it blank
-#: irssinotifier/notifier.py:77 irssinotifier/ui.py:34 irssinotifier/ui.py:134
+#: irssinotifier/notifier.py:77 irssinotifier/ui.py:36 irssinotifier/ui.py:139
 #: irssinotifier/data/glade/prefs.glade:8
 msgid "Irssi Notifier"
 msgstr ""
@@ -120,43 +120,43 @@ msgid "Disconnected from server"
 msgstr ""
 
 #. No need to translate copyright
-#: irssinotifier/ui.py:37
+#: irssinotifier/ui.py:39
 msgid "2007 © UfSoft.org"
 msgstr ""
 
-#: irssinotifier/ui.py:38
+#: irssinotifier/ui.py:40
 msgid "Irssi Real-Time Remote Visual Notifications"
 msgstr ""
 
-#: irssinotifier/ui.py:44
-msgid "Development Site"
+#: irssinotifier/ui.py:46
+msgid "Go To Development Site"
 msgstr ""
 
-#: irssinotifier/ui.py:81
+#: irssinotifier/ui.py:86
 msgid "<b><i>You need to reload application for changes to take effect.</i></b>"
 msgstr ""
 
-#: irssinotifier/ui.py:235 irssinotifier/ui.py:276
+#: irssinotifier/ui.py:240 irssinotifier/ui.py:281
 msgid "Nick"
 msgstr ""
 
-#: irssinotifier/ui.py:258
+#: irssinotifier/ui.py:263
 msgid "Address"
 msgstr ""
 
-#: irssinotifier/ui.py:267
+#: irssinotifier/ui.py:272
 msgid "Port"
 msgstr ""
 
-#: irssinotifier/ui.py:329
+#: irssinotifier/ui.py:334
 msgid "ADDRESS_HERE"
 msgstr ""
 
-#: irssinotifier/ui.py:330
+#: irssinotifier/ui.py:335
 msgid "PORT_HERE"
 msgstr ""
 
-#: irssinotifier/ui.py:331 irssinotifier/ui.py:341
+#: irssinotifier/ui.py:336 irssinotifier/ui.py:346
 msgid "NICK_HERE"
 msgstr ""
 

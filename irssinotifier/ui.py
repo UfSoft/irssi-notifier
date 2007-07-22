@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 17 2007-07-22 20:34:02Z s0undt3ch $
+# $Id: ui.py 18 2007-07-22 21:17:13Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-07-22 21:34:02 +0100 (Sun, 22 Jul 2007) $
-#             $Rev: 17 $
+# $LastChangedDate: 2007-07-22 22:17:13 +0100 (Sun, 22 Jul 2007) $
+#             $Rev: 18 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -21,6 +21,7 @@ import gobject
 import ConfigParser
 import irssinotifier
 from babel import Locale
+import webbrowser
 
 LANG_UPDATED = 0
 
@@ -30,6 +31,7 @@ LANG_UPDATED = 0
 
 class AboutGUI:
     def __init__(self):
+        gtk.about_dialog_set_url_hook(self.open_link)
         self.dialog = gtk.AboutDialog()
         self.dialog.set_name(_('Irssi Notifier'))
         self.dialog.set_version(irssinotifier.__version__)
@@ -41,7 +43,7 @@ class AboutGUI:
                                'LICENSE')
         self.dialog.set_license(open(license).read())
         self.dialog.set_website(irssinotifier.__url__)
-        self.dialog.set_website_label(_('Development Site'))
+        self.dialog.set_website_label(_('Go To Development Site'))
         self.dialog.set_authors(['Pedro Algarvio <ufs@ufsoft.org>'])
         self.dialog.set_translator_credits('Pedro Algarvio <ufs@ufsoft.org>')
         img = gtk.gdk.pixbuf_new_from_file(
@@ -51,6 +53,9 @@ class AboutGUI:
         self.dialog.set_icon(img)
 
         self.dialog.connect("response", lambda d, r: self.hide_about())
+
+    def open_link(self, dialog, link, user_data=None):
+        webbrowser.open(link, new=True, autoraise=True)
 
     def show_about(self, widget):
         self.dialog.show_all()
