@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 14 2007-07-21 11:24:12Z s0undt3ch $
+# $Id: parser.py 15 2007-07-22 18:00:24Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
-#             $Rev: 14 $
+# $LastChangedDate: 2007-07-22 19:00:24 +0100 (Sun, 22 Jul 2007) $
+#             $Rev: 15 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -18,7 +18,6 @@ import sys
 from optparse import OptionParser
 import ConfigParser
 from irssinotifier import __version__ as VERSION
-from irssinotifier.translation import *
 
 class IrssiProxyNotifierStartup:
     def __init__(self):
@@ -159,7 +158,8 @@ class IrssiProxyNotifierStartup:
                 opts = {}
                 for opt in (
                     'nick', 'passwd', 'name', 'proxies', 'friends', 'timeout',
-                    'x_away', 'away_reason', 'charset', 'bitlbee'):
+                    'x_away', 'away_reason', 'charset', 'bitlbee', 'gui',
+                    'language', 'debug'):
                     try:
                         if opt in ('proxies', 'friends'):
                             opts[opt] = config.get('main', opt).split()
@@ -169,8 +169,8 @@ class IrssiProxyNotifierStartup:
                             except ValueError:
                                 opts[opt] = int(config.getfloat('main',
                                                                 'timeout'))
-                        elif opt == 'bitlbee':
-                            opts[opt] = config.getboolean('main', 'bitlbee')
+                        elif opt in ('bitlbee', 'gui', 'debug'):
+                            opts[opt] = config.getboolean('main', opt)
                         else:
                             opts[opt] = config.get('main', opt)
                     except ConfigParser.NoOptionError:
@@ -295,6 +295,8 @@ class IrssiProxyNotifierStartup:
                 "You must pass at least one irssi-proxy addr:port"
             )
 
+
+        from irssinotifier.translation import set_lang
         set_lang(options.language, charset, options.gui)
         # Late import so translations are not ignored
         from irssinotifier.notifier import IrssiProxyNotifier

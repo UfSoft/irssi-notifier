@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 14 2007-07-21 11:24:12Z s0undt3ch $
+# $Id: ui.py 15 2007-07-22 18:00:24Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
-#             $Rev: 14 $
+# $LastChangedDate: 2007-07-22 19:00:24 +0100 (Sun, 22 Jul 2007) $
+#             $Rev: 15 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -20,8 +20,12 @@ import gtk.glade
 import gobject
 import ConfigParser
 import irssinotifier
+from babel import Locale
+
+LANG_UPDATED = 0
 
 ( FRIENDS_NICK, FRIENDS_EDITABLE ) = range(2)
+( LANG_LANGUAGE, LANG_LOCALE, LANG_INDEX) = range(3)
 ( PROXIES_HOST, PROXIES_PORT, PROXIES_NICK, PROXIES_EDITABLE ) = range(4)
 
 class AboutGUI:
@@ -62,7 +66,8 @@ class TrayApp:
         # Read Glade File
         gladefile = os.path.join(os.path.dirname(__file__), 'data', 'glade',
                                  'prefs.glade')
-        self.wTree = gtk.glade.XML(gladefile, 'PreferencesDialog')
+        self.wTree = gtk.glade.XML(gladefile, 'PreferencesDialog',
+                                   __glade_translator__)
         self.win = self.wTree.get_widget('PreferencesDialog')
         # Set Dialog Icon
         icon = gtk.gdk.pixbuf_new_from_file(
@@ -83,7 +88,8 @@ class TrayApp:
             "on_AddFriendsButton_clicked": (self.on_AddFriendsButton_clicked,
                                             self.friends_treeview),
             "on_RemoveFriendsButton_clicked": (self.on_RemoveFriendsButton_clicked,
-                                               self.friends_treeview)
+                                               self.friends_treeview),
+            "on_LanguageComboBox_changed": self.on_LanguageComboBox_changed
         }
         self.wTree.signal_autoconnect(events)
         # Friends Tab
@@ -94,8 +100,12 @@ class TrayApp:
         proxies_model = self._create_proxies_model()
         self.proxies_treeview.set_model(proxies_model)
         self._create_proxies_columns(self.proxies_treeview)
+        self._populate_preferences()
         self.trayicon = self.create_tray_icon()
         self.menu = self.create_menu()
+
+        #cancel = self.wTree.get_widget('CancelButton')
+        #print cancel.get_button()
 
     def create_tray_icon(self):
         trayicon = gtk.StatusIcon()
@@ -142,6 +152,52 @@ class TrayApp:
 
     def show_prefs(self, widget):
         self.win.show_all()
+
+    def _get_available_locales(self):
+        available_locales = []
+        i18ndir = os.path.join(os.path.dirname(__file__), 'i18n')
+        for entry in os.listdir(i18ndir):
+            mo_path = os.path.join(i18ndir, entry, 'LC_MESSAGES',
+                                   'irssinotifier.mo')
+            if os.path.isfile(mo_path):
+                if '_' in entry:
+                    available_locales.append(tuple(entry.split('_')))
+                else:
+                    available_locales.append((entry, None))
+        available_languages = []
+        locl = Locale.parse(self.config.language)
+        for locale, territory in available_locales:
+            language = locl.languages[locale].capitalize()
+            if territory:
+                country = u'(%s)' % locl.territories[territory]
+                value = ['%s_%s' % (locale, territory),
+                         u'%s %s' % (language, country)]
+            else:
+                value = [locale, language]
+            available_languages.append(value)
+
+        return available_languages
+
+    def _create_languages_model(self):
+        model = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
+                              gobject.TYPE_INT)
+        for index, entry in enumerate(self._get_available_locales()):
+            locale, language = entry
+            iter = model.append()
+            model.set(iter,
+                      LANG_LANGUAGE, language,
+                      LANG_LOCALE, locale,
+                      LANG_INDEX, index)
+        return model
+
+    def _set_languages(self, combobox):
+        model = self._create_languages_model()
+        combobox.set_model(model)
+        cell = gtk.CellRendererText()
+        combobox.pack_start(cell, True)
+        for language, locale, index in model:
+            if locale == self.config.language:
+                combobox.set_active(index)
 
     def _create_friends_model(self):
         model = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_BOOLEAN)
@@ -203,6 +259,39 @@ class TrayApp:
                                     editable=PROXIES_EDITABLE)
         proxies_tree_view.append_column(column)
 
+    def _populate_preferences(self):
+        # Set Notification Timeout
+        timeout = self.wTree.get_widget('NotificationTimeOutSpinButton')
+        timeout.set_value(self.config.timeout)
+        # Set Irssi Proxy Passwd
+        proxy_passwd = self.wTree.get_widget('ProxyPasswdInput')
+        proxy_passwd.set_visibility(False) # Hidden
+        proxy_passwd.set_invisible_char('*')
+        proxy_passwd.set_text(self.config.passwd)
+        # Set Debug Mode
+        debug_chkbox = self.wTree.get_widget('DebugModeCheckButton')
+        debug_chkbox.set_active(self.config.debug)
+        # Set Always in GUI Mode
+        gui_mode = self.wTree.get_widget('RunGuiCheckButton')
+        gui_mode.set_active(self.config.gui)
+        # Set Languages
+        langscb = self.wTree.get_widget('LanguageComboBox')
+        self._set_languages(langscb)
+
+        # Set Fallback Charset
+        fbcharset = self.wTree.get_widget('FallbackCharsetInput')
+        fbcharset.set_text(self.config.charset or '')
+        # Set Away-Reason
+        away_reason = self.wTree.get_widget('AwayReasonInput')
+        away_reason.set_text(self.config.away_reason)
+        # Set Away Timeout
+        away_timeout = self.wTree.get_widget('AutoAwaySpinButton')
+        away_timeout.set_value(self.config.x_away)
+        # Set Bitlebee Support Enabled
+        bitlbee = self.wTree.get_widget('BitlbeeCheckButton')
+        bitlbee.set_active(self.config.bitlbee)
+
+
     def on_cell_edited(self, cell, path_string, new_text, model):
         #print "on cell edit called"
         #print "cell", cell, "path_string", path_string, "new_text", new_text
@@ -240,9 +329,25 @@ class TrayApp:
             path = model.get_path(iter)[0]
             model.remove(iter)
 
+    def on_LanguageComboBox_changed(self, combobox):
+        # User Will need to reload app
+        global LANG_UPDATED
+        if LANG_UPDATED > 0:
+            box = self.wTree.get_widget('LanguageVbox')
+            label = gtk.Label(_('<b><i>You will need to reload application '
+                                'for language changes to take effect.</i></b>'))
+            label.set_use_markup(True)
+            label.show()
+            box.pack_end(label, False, False, padding=5)
+        LANG_UPDATED += 1
+
     def on_OkButton_clicked(self, button):
-        friends = [entry[0] for entry in iter(self.friends_treeview.get_model())]
-        proxies = [tuple(entry) for entry in iter(self.proxies_treeview.get_model())]
+        friends = [
+            entry[0] for entry in iter(self.friends_treeview.get_model())
+        ]
+        proxies = [
+            tuple(entry) for entry in iter(self.proxies_treeview.get_model())
+        ]
         # Handle Notifier
         # - Update Friends
         self.notifier.friends = friends
@@ -260,7 +365,37 @@ class TrayApp:
         for entry in proxies:
             proxy_entries.append(':'.join(entry[:-1]))
         config.set('main', 'proxies', ' '.join(proxy_entries))
-
+        # - Notification Timeout
+        timeout = self.wTree.get_widget('NotificationTimeOutSpinButton')
+        config.set('main', 'timeout', "%d" % timeout.get_value())
+        # - Irssi Proxy Passwd
+        proxy_passwd = self.wTree.get_widget('ProxyPasswdInput')
+        config.set('main', 'passwd', proxy_passwd.get_text())
+        # - Debug Mode
+        debug_chkbox = self.wTree.get_widget('DebugModeCheckButton')
+        config.set('main', 'debug', "%s" % debug_chkbox.get_active())
+        # - GUI
+        gui_mode = self.wTree.get_widget('RunGuiCheckButton')
+        config.set('main', 'gui', "%s" % gui_mode.get_active())
+        # - Language
+        langscb = self.wTree.get_widget('LanguageComboBox')
+        lang_model = langscb.get_model()
+        lang_text = langscb.get_active_text()
+        for language, locale, index in lang_model:
+            if language == lang_text:
+                config.set('main', 'language', locale)
+        # - Fallback Charset
+        fbcharset = self.wTree.get_widget('FallbackCharsetInput')
+        config.set('main', 'charset', fbcharset.get_text())
+        # - Away-Reason
+        away_reason = self.wTree.get_widget('AwayReasonInput')
+        config.set('main', 'away_reason', away_reason.get_text())
+        # - Away Timeout
+        away_timeout = self.wTree.get_widget('AutoAwaySpinButton')
+        config.set('main', 'x_away', "%d" % away_timeout.get_value())
+        # - Bitlbee Notification
+        bitlbee = self.wTree.get_widget('BitlbeeCheckButton')
+        config.set('main', 'bitlbee', "%s" % bitlbee.get_active())
         # - Write Configs
         config.write(open(os.path.expanduser(self.cfgfile), 'w'))
         self.delete_event(button)

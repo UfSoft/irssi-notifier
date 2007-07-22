@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: translation.py 14 2007-07-21 11:24:12Z s0undt3ch $
+# $Id: translation.py 15 2007-07-22 18:00:24Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/translation.py $
-# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
-#             $Rev: 14 $
+# $LastChangedDate: 2007-07-22 19:00:24 +0100 (Sun, 22 Jul 2007) $
+#             $Rev: 15 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -26,6 +26,8 @@ def set_lang(lang, codeset='utf-8', gui=False):
     locale_dir = os.path.join(os.path.dirname(__file__), 'i18n')
     domain = 'irssinotifier'
 
+    gettext.bindtextdomain(domain, locale_dir)
+    gettext.textdomain(domain)
     locale.bindtextdomain(domain, locale_dir)
     locale.textdomain(domain)
     if gui:
@@ -63,4 +65,6 @@ def set_lang(lang, codeset='utf-8', gui=False):
             sys.exit(1)
 
     __builtin__._ = translator.ugettext
+    __builtin__.__glade_translator__ = locale.textdomain(domain)
+    from irssinotifier import notifier, ui
 
