@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: IrssiNotifier 0.2.0\n"
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
-"POT-Creation-Date: 2007-07-22 20:19+0100\n"
+"POT-Creation-Date: 2007-07-22 21:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,7 +140,7 @@ msgid "Nick"
 msgstr ""
 
 #: irssinotifier/ui.py:258
-msgid "Host"
+msgid "Address"
 msgstr ""
 
 #: irssinotifier/ui.py:267
@@ -148,7 +148,7 @@ msgid "Port"
 msgstr ""
 
 #: irssinotifier/ui.py:329
-msgid "HOST_HERE"
+msgid "ADDRESS_HERE"
 msgstr ""
 
 #: irssinotifier/ui.py:330
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Notification Timeout:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:282 irssinotifier/data/glade/prefs.glade:569
+#: irssinotifier/data/glade/prefs.glade:282 irssinotifier/data/glade/prefs.glade:557
 msgid "seconds"
 msgstr ""
 
@@ -203,35 +203,35 @@ msgstr ""
 msgid "Always Run Graphic Interface"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:404
+#: irssinotifier/data/glade/prefs.glade:400
 msgid "Language:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:437
+#: irssinotifier/data/glade/prefs.glade:431
 msgid "Fallback Charset:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:445
+#: irssinotifier/data/glade/prefs.glade:439
 msgid "Fallback charset in case UTF-8 is not used."
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:462
+#: irssinotifier/data/glade/prefs.glade:456
 msgid "<b>Bitlebee Settings</b>"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:489
+#: irssinotifier/data/glade/prefs.glade:479
 msgid "Enable Bitlbee Notifications"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:514
+#: irssinotifier/data/glade/prefs.glade:502
 msgid "Away Reason:"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:545
+#: irssinotifier/data/glade/prefs.glade:533
 msgid "Auto-Away (seconds):"
 msgstr ""
 
-#: irssinotifier/data/glade/prefs.glade:595
+#: irssinotifier/data/glade/prefs.glade:583
 msgid "Settings"
 msgstr ""
 

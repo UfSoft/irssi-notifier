@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.0 on Sun Jul 22 20:16:43 2007 by vampas@lgl-->
+<!--Generated with glade3 3.2.0 on Sun Jul 22 21:19:13 2007 by vampas@lgl-->
 <glade-interface>
   <widget class="GtkDialog" id="PreferencesDialog">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -387,36 +387,30 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkVBox" id="LanguageVbox">
+                  <widget class="GtkHBox" id="LanguageHbox">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="homogeneous">True</property>
                     <child>
-                      <widget class="GtkHBox" id="LanguageHbox">
+                      <widget class="GtkLabel" id="LanguageLabel">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="homogeneous">True</property>
-                        <child>
-                          <widget class="GtkLabel" id="LanguageLabel">
-                            <property name="visible">True</property>
-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="xalign">1</property>
-                            <property name="xpad">5</property>
-                            <property name="label" translatable="yes">Language:</property>
-                            <property name="justify">GTK_JUSTIFY_RIGHT</property>
-                          </widget>
-                        </child>
-                        <child>
-                          <widget class="GtkComboBox" id="LanguageComboBox">
-                            <property name="visible">True</property>
-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="items" translatable="yes"></property>
-                            <signal name="changed" handler="on_LanguageComboBox_changed"/>
-                          </widget>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
+                        <property name="xalign">1</property>
+                        <property name="xpad">5</property>
+                        <property name="label" translatable="yes">Language:</property>
+                        <property name="justify">GTK_JUSTIFY_RIGHT</property>
                       </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkComboBox" id="LanguageComboBox">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="items" translatable="yes"></property>
+                        <signal name="changed" handler="on_LanguageComboBox_changed"/>
+                      </widget>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
                     </child>
                   </widget>
                   <packing>
@@ -467,34 +461,28 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkVBox" id="EnableBitlebeeVbox">
+                  <widget class="GtkHBox" id="EnableBitlebeeHbox">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="homogeneous">True</property>
                     <child>
-                      <widget class="GtkHBox" id="EnableBitlebeeHbox">
+                      <widget class="GtkLayout" id="layout3">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="homogeneous">True</property>
-                        <child>
-                          <widget class="GtkLayout" id="layout3">
-                            <property name="visible">True</property>
-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                          </widget>
-                        </child>
-                        <child>
-                          <widget class="GtkCheckButton" id="BitlbeeCheckButton">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label" translatable="yes">Enable Bitlbee Notifications</property>
-                            <property name="draw_indicator">True</property>
-                            <signal name="toggled" handler="on_BitlbeeCheckButton_toggled"/>
-                          </widget>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
                       </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkCheckButton" id="BitlbeeCheckButton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Enable Bitlbee Notifications</property>
+                        <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="on_BitlbeeCheckButton_toggled"/>
+                      </widget>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
                     </child>
                   </widget>
                   <packing>

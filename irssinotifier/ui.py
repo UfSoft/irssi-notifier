@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 16 2007-07-22 19:29:14Z s0undt3ch $
+# $Id: ui.py 17 2007-07-22 20:34:02Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-07-22 20:29:14 +0100 (Sun, 22 Jul 2007) $
-#             $Rev: 16 $
+# $LastChangedDate: 2007-07-22 21:34:02 +0100 (Sun, 22 Jul 2007) $
+#             $Rev: 17 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -255,7 +255,7 @@ class TrayApp:
         renderer = gtk.CellRendererText()
         renderer.connect("edited", self.on_cell_edited, model)
         renderer.set_data("column", PROXIES_HOST)
-        column = gtk.TreeViewColumn(_('Host'), renderer,
+        column = gtk.TreeViewColumn(_('Address'), renderer,
                                     text=PROXIES_HOST,
                                     editable=PROXIES_EDITABLE)
         proxies_tree_view.append_column(column)
@@ -326,7 +326,7 @@ class TrayApp:
         model = treeview.get_model()
         iter = model.append()
         model.set(iter,
-                  PROXIES_HOST, _("HOST_HERE"),
+                  PROXIES_HOST, _("ADDRESS_HERE"),
                   PROXIES_PORT, _("PORT_HERE"),
                   PROXIES_NICK, _("NICK_HERE"),
                   PROXIES_EDITABLE, True)
