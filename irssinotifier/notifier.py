@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 19 2007-07-24 18:16:48Z s0undt3ch $
+# $Id: notifier.py 30 2007-07-24 20:32:35Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-24 19:16:48 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 19 $
+# $LastChangedDate: 2007-07-24 21:32:35 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 30 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -160,7 +160,7 @@ class IrssiProxyNotifier:
         nick = event.source().split('!')[0]
         if nick in self.friends:
             header = _('<b>Known Friend Has Joined:</b>\n')
-            message = _('%(friend)s joined %(channel)s on %(server)s') % {
+            message = _('%(nick)s joined %(channel)s on %(server)s') % {
                 'nick': nick,
                 'channel': event.target(),
                 'server': connection.get_server_name().rstrip('.proxy') }
