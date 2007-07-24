@@ -7,7 +7,8 @@ http://irssinotifier.ufsoft.org:8080/svn/tags/0.2.0
 ----
 Irssi Notification 0.1.1 (23/May/2007)
 http://www.python.org/pypi/IrssiNotifier/0.1.1
-22-07-2007: Pedro Algarvio <ufs@ufsoft.org>
+
+24-07-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Include a fully working graphic user interface.
 
 13-07-2007: Pedro Algarvio <ufs@ufsoft.org>
