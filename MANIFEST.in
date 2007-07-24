@@ -1,4 +1,6 @@
 include ChangeLog
+include LICENSE
+include README
 include irssinotifier/*.png
 include irssinotifier/i18n/*/LC_MESSAGES/*.mo
 exclude irssinotifier/i18n/*/LC_MESSAGES/*.po
