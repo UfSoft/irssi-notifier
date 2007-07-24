@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: translation.py 15 2007-07-22 18:00:24Z s0undt3ch $
+# $Id: translation.py 19 2007-07-24 18:16:48Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/translation.py $
-# $LastChangedDate: 2007-07-22 19:00:24 +0100 (Sun, 22 Jul 2007) $
-#             $Rev: 15 $
+# $LastChangedDate: 2007-07-24 19:16:48 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 19 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -55,7 +55,7 @@ def set_lang(lang, codeset='utf-8', gui=False):
         # from the environment
         new_locale = '.'.join([lang[0], locale.getdefaultlocale()[1]])
         try:
-            os.environ['LC_ALL'] = os.environ['LANG'] = new_locale
+            os.environ['LC_ALL'] = new_locale
             locale.setlocale(locale.LC_ALL,'')
         except locale.Error:
             import sys
@@ -66,5 +66,6 @@ def set_lang(lang, codeset='utf-8', gui=False):
 
     __builtin__._ = translator.ugettext
     __builtin__.__glade_translator__ = locale.textdomain(domain)
+    # Late import to make use of locale set
     from irssinotifier import notifier, ui
 

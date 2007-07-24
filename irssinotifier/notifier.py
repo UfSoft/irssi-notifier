@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 14 2007-07-21 11:24:12Z s0undt3ch $
+# $Id: notifier.py 19 2007-07-24 18:16:48Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
-#             $Rev: 14 $
+# $LastChangedDate: 2007-07-24 19:16:48 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 19 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -31,6 +31,7 @@ except Exception, error:
 pygtk.require('2.0')
 
 #from irssinotifier.translation import _
+
 
 IRC_CODES_RE = re.compile(
     #ur'(\\x16|\\x02|\\x1f|\\x0f|\\x[a|c]\d{1}|' + \
@@ -269,10 +270,16 @@ class IrssiProxyNotifier:
     def start(self):
         if self.x_away:
             self.check_idle()
-        self.process_unless_disconnected()
 
-    def process_unless_disconnected(self):
+    def process(self, timeout=0):
+        if self.connection.is_connected():
+            self.irc.process_once(timeout)
+            return True
+
+    def process_non_gui(self):
+        #print "start to precess non GUI"
         while self.connection.is_connected():
+            #print "processing non GUI"
             self.irc.process_once(0.2)
         self.notify(_("Disconnected from server"))
         print _("Disconnected from server")
