@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 19 2007-07-24 18:16:48Z s0undt3ch $
+# $Id: parser.py 36 2007-07-24 22:58:35Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-07-24 19:16:48 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 19 $
+# $LastChangedDate: 2007-07-24 23:58:35 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 36 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -347,7 +347,6 @@ class IrssiProxyNotifierStartup:
 
             ta.main()
         else:
-            print "Non GUI"
             if options.debug:
                 print
                 try:

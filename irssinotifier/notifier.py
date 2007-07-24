@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 30 2007-07-24 20:32:35Z s0undt3ch $
+# $Id: notifier.py 36 2007-07-24 22:58:35Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-24 21:32:35 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 30 $
+# $LastChangedDate: 2007-07-24 23:58:35 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 36 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -217,10 +217,12 @@ class IrssiProxyNotifier:
 
     # These two functions set the away status
     def setaway(self, reason):
-        self.connection.send_raw(_("AWAY: %s") % reason)
+        for connection in self.irc.connections:
+            connection.send_raw(_("AWAY: %s") % reason)
 
     def unaway(self):
-        self.connection.send_raw(_("AWAY"))
+        for connection in self.irc.connections:
+            connection.send_raw(_("AWAY"))
 
     # This functions checks if X is idle. If yes, and if the user is not
     # already away, it puts the user in away status and remembers it. If not,
@@ -247,22 +249,21 @@ class IrssiProxyNotifier:
         for server, port, nick in self.proxies:
             self.nicks.append(nick)
             try:
-                self.connection = self.irc.server().connect(
+                connection = self.irc.server().connect(
                     server,
                     port,
                     nick,
                     username = self.name,
                     password = self.passwd
                 )
-                if self.connection.connected:
+                if connection.connected:
                     self.notify(_("<b>Connection Sucessfull:</b>\n"
                                   "To irssi proxy on %(server)s:%(port)s") % {
-                                    'server': server,
-                                    'port': port })
+                                    'server': server, 'port': port })
                 else:
                     self.notify(_("<b>Connection Failed:</b>\nFailed to "
-                                  "connect to %(server)s:%(port)s") % \
-                                  {'server': server, 'port': port })
+                                  "connect to %(server)s:%(port)s") % {
+                                    'server': server, 'port': port })
             except irclib.ServerConnectionError, error:
                 print error
                 sys.exit(1)
@@ -271,14 +272,21 @@ class IrssiProxyNotifier:
         if self.x_away:
             self.check_idle()
 
+    def is_connected(self):
+        connected = False
+        for connection in self.irc.connections:
+            if connection.connected:
+                connected = True
+        return connected
+
     def process(self, timeout=0):
-        if self.connection.is_connected():
+        if self.is_connected():
             self.irc.process_once(timeout)
             return True
+        return False
 
     def process_non_gui(self):
-        #print "start to precess non GUI"
-        while self.connection.is_connected():
+        while self.is_connected():
             #print "processing non GUI"
             self.irc.process_once(0.2)
         self.notify(_("Disconnected from server"))

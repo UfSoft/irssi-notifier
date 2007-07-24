@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 34 2007-07-24 20:41:32Z s0undt3ch $
+# $Id: setup.py 36 2007-07-24 22:58:35Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-07-24 21:41:32 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 34 $
+# $LastChangedDate: 2007-07-24 23:58:35 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 36 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -70,7 +70,7 @@ setup(
     zip_safe = False,
     # PyXSS tries to find SWIG on system, if not found installs the pre SWIG
     # version, should we warn the user about this?
-    install_requires = ['PyXSS'],
+    install_requires = ['PyXSS', 'Babel'],
     dependency_links = [
         'http://bebop.bigasterisk.com/python',
     ],
