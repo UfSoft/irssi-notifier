@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 14 2007-07-21 11:24:12Z s0undt3ch $
+# $Id: setup.py 34 2007-07-24 20:41:32Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-07-21 12:24:12 +0100 (Sat, 21 Jul 2007) $
-#             $Rev: 14 $
+# $LastChangedDate: 2007-07-24 21:41:32 +0100 (Tue, 24 Jul 2007) $
+#             $Rev: 34 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -47,9 +47,10 @@ irssi's proxy module. Also notifies of friends joins, parts, quits and nick
 changes, ie, it's common a user to change it's nick from 'foo' to 'foo_away'
 when he's set as away.
 
-For more information, submit bugs or if you'd like to comment about the tool
-please visit:
+For more information or if you'd like to comment about the tool please visit:
     http://blog.ufsoft.org/index.php/category/irssi-notification/
+Or, to submit bugs/new features:
+    http://irssinotifier.ufsoft.org/
 """
 
 setup(
