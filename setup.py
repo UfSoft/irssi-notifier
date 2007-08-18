@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 36 2007-07-24 22:58:35Z s0undt3ch $
+# $Id: setup.py 38 2007-08-18 23:47:12Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-07-24 23:58:35 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 36 $
+# $LastChangedDate: 2007-08-19 00:47:12 +0100 (Sun, 19 Aug 2007) $
+#             $Rev: 38 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -24,14 +24,14 @@ except ImportError:
     sys.exit(1)
 try:
     import pynotify
-except:
+except ImportError:
     print "You need to install python-notify"
     print "On Debian:"
     print "  sudo apt-get install python-notify"
     sys.exit(1)
 try:
     import pygtk
-except:
+except ImportError:
     print "You need to install Python's GTK2 support"
     print "On Debian:"
     print "  sudo apt-get install python-gtk2"

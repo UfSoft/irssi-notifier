@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 19 2007-07-24 18:16:48Z s0undt3ch $
+# $Id: ui.py 38 2007-08-18 23:47:12Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-07-24 19:16:48 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 19 $
+# $LastChangedDate: 2007-08-19 00:47:12 +0100 (Sun, 19 Aug 2007) $
+#             $Rev: 38 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -170,7 +170,7 @@ class TrayApp:
     def main(self):
         #gtk.gdk.threads_init()
         self.notifier.start()
-        gobject.idle_add(self.notifier.process)
+        gobject.timeout_add(500, self.notifier.process)
         gtk.main()
 
     def delete_event(self, widget, *args):
@@ -445,3 +445,4 @@ class TrayApp:
 def run_tray_app():
     tapp = TrayApp()
     tapp.main()
+
