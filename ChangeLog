@@ -1,6 +1,9 @@
 Irssi Notification 0.2.0 (?/May/2007)
 http://irssinotifier.ufsoft.org:8080/svn/tags/0.2.0
 
+19-08-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Reduced CPU usage.
+
 24-07-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Version 0.2.0RC1 Released
 	* Added Babel as a dependency
