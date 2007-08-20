@@ -10,14 +10,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
 "POT-Creation-Date: 2007-07-20 18:08+0100\n"
-"PO-Revision-Date: 2007-07-24 19:11+0100\n"
+"PO-Revision-Date: 2007-08-20 09:42+0100\n"
 "Last-Translator: Pedro Algarvio <ufs@ufsoft.org>\n"
 "Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9dev-r239\n"
+"Generated-By: Babel 0.9dev-r267\n"
 
 #. No need to translate the app name, just leave it blank
 #: irssinotifier/notifier.py:78 irssinotifier/ui.py:38 irssinotifier/ui.py:140
@@ -57,7 +57,7 @@ msgstr ""
 
 #: irssinotifier/notifier.py:163
 #, python-format
-msgid "%(friend)s joined %(channel)s on %(server)s"
+msgid "%(nick)s joined %(channel)s on %(server)s"
 msgstr ""
 
 #: irssinotifier/notifier.py:172
@@ -92,30 +92,30 @@ msgstr ""
 msgid "%(nick)s has come online on bitlbee"
 msgstr ""
 
-#: irssinotifier/notifier.py:220
+#: irssinotifier/notifier.py:221
 #, python-format
 msgid "AWAY: %s"
 msgstr ""
 
-#: irssinotifier/notifier.py:223
+#: irssinotifier/notifier.py:225
 msgid "AWAY"
 msgstr ""
 
-#: irssinotifier/notifier.py:258
+#: irssinotifier/notifier.py:260
 #, python-format
 msgid ""
 "<b>Connection Sucessfull:</b>\n"
 "To irssi proxy on %(server)s:%(port)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:263
+#: irssinotifier/notifier.py:264
 #, python-format
 msgid ""
 "<b>Connection Failed:</b>\n"
 "Failed to connect to %(server)s:%(port)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:284 irssinotifier/notifier.py:285
+#: irssinotifier/notifier.py:292 irssinotifier/notifier.py:293
 msgid "Disconnected from server"
 msgstr ""
 
