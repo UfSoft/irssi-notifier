@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 36 2007-07-24 22:58:35Z s0undt3ch $
+# $Id: notifier.py 45 2007-09-04 08:00:12Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-07-24 23:58:35 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 36 $
+# $LastChangedDate: 2007-09-04 09:00:12 +0100 (Tue, 04 Sep 2007) $
+#             $Rev: 45 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -15,6 +15,7 @@
 
 import re
 import os
+from cgi import escape as cgi_escape
 import sys
 import xss          # This is used to know how long X has been idle
                     # http://bebop.bigasterisk.com/python
@@ -93,7 +94,7 @@ class IrssiProxyNotifier:
         notification.show()
 
     def _strip_irc_codes(self, message):
-        return eval(re.sub(IRC_CODES_RE, '', repr(message)))
+        return cgi_escape(eval(re.sub(IRC_CODES_RE, '', repr(message))))
 
     def _addressing_ownnick(self, event):
         nick = event.source().split('!')[0]

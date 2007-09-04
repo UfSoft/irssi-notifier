@@ -1,6 +1,9 @@
 Irssi Notification 0.2.0 (?/May/2007)
 http://irssinotifier.ufsoft.org:8080/svn/tags/0.2.0
 
+04-09-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Fixed #10. Escape IRC messages with cgi.escape. Thanks vampjon.
+
 19-08-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Reduced CPU usage.
 

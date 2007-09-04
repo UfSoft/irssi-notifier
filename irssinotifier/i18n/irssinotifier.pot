@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: IrssiNotifier 0.2.0\n"
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
-"POT-Creation-Date: 2007-08-20 09:42+0100\n"
+"POT-Creation-Date: 2007-09-04 08:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,102 +19,102 @@ msgstr ""
 "Generated-By: Babel 0.9dev-r267\n"
 
 #. No need to translate the app name, just leave it blank
-#: irssinotifier/notifier.py:78 irssinotifier/ui.py:38 irssinotifier/ui.py:140
+#: irssinotifier/notifier.py:79 irssinotifier/ui.py:38 irssinotifier/ui.py:140
 #: irssinotifier/data/glade/prefs.glade:8
 msgid "Irssi Notifier"
 msgstr ""
 
-#: irssinotifier/notifier.py:106
+#: irssinotifier/notifier.py:107
 msgid "<b>New Private Message:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:108
+#: irssinotifier/notifier.py:109
 #, python-format
 msgid ""
 "<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
 "%(message)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:116
+#: irssinotifier/notifier.py:117
 msgid "<b>New Message:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:131 irssinotifier/notifier.py:149
+#: irssinotifier/notifier.py:132 irssinotifier/notifier.py:150
 #, python-format
 msgid ""
 "<b>From <i>%(nick)s</i> on <tt>%(channel)s(%(server)s)</tt>:</b>\n"
 "%(message)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:140
+#: irssinotifier/notifier.py:141
 msgid "<b>New IRC Action:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:162
+#: irssinotifier/notifier.py:163
 msgid "<b>Known Friend Has Joined:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:163
+#: irssinotifier/notifier.py:164
 #, python-format
 msgid "%(nick)s joined %(channel)s on %(server)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:172
+#: irssinotifier/notifier.py:173
 msgid "<b>Known Friend Has Parted:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:173
+#: irssinotifier/notifier.py:174
 #, python-format
 msgid "%(nick)s parted %(channel)s on %(server)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:182
+#: irssinotifier/notifier.py:183
 #, python-format
 msgid "%(nick)r has quit!"
 msgstr ""
 
-#: irssinotifier/notifier.py:185
+#: irssinotifier/notifier.py:186
 msgid "<b>Known Friend Changed Nick:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:189
+#: irssinotifier/notifier.py:190
 #, python-format
 msgid "From %(oldnick)r to %(newnick)r on %(server)r"
 msgstr ""
 
-#: irssinotifier/notifier.py:204
+#: irssinotifier/notifier.py:205
 msgid "<b>Contact Is Online</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:205
+#: irssinotifier/notifier.py:206
 #, python-format
 msgid "%(nick)s has come online on bitlbee"
 msgstr ""
 
-#: irssinotifier/notifier.py:221
+#: irssinotifier/notifier.py:222
 #, python-format
 msgid "AWAY: %s"
 msgstr ""
 
-#: irssinotifier/notifier.py:225
+#: irssinotifier/notifier.py:226
 msgid "AWAY"
 msgstr ""
 
-#: irssinotifier/notifier.py:260
+#: irssinotifier/notifier.py:261
 #, python-format
 msgid ""
 "<b>Connection Sucessfull:</b>\n"
 "To irssi proxy on %(server)s:%(port)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:264
+#: irssinotifier/notifier.py:265
 #, python-format
 msgid ""
 "<b>Connection Failed:</b>\n"
 "Failed to connect to %(server)s:%(port)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:292 irssinotifier/notifier.py:293
+#: irssinotifier/notifier.py:293 irssinotifier/notifier.py:294
 msgid "Disconnected from server"
 msgstr ""
 
