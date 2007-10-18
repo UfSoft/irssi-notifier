@@ -1,8 +1,14 @@
 Irssi Notification 0.2.0 (?/May/2007)
-http://irssinotifier.ufsoft.org:8080/svn/tags/0.2.0
+http://irssinotifier.ufsoft.org/svn/tags/0.2.0
+
+18-10-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Fixed broken package. Distribution egg didn't had the compiled message
+	catalogs, nor, the LICENSE file.
+	* Simplified and corrected the IRC codes stripping regex.
 
 04-09-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Fixed #10. Escape IRC messages with cgi.escape. Thanks vampjon.
+	* Bumped RC version.
 
 19-08-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Reduced CPU usage.

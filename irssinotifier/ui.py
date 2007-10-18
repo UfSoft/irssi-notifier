@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 38 2007-08-18 23:47:12Z s0undt3ch $
+# $Id: ui.py 51 2007-10-18 16:42:55Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-08-19 00:47:12 +0100 (Sun, 19 Aug 2007) $
-#             $Rev: 38 $
+# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
+#             $Rev: 51 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -32,6 +32,7 @@ LANG_UPDATED = 0
 ( PROXIES_HOST, PROXIES_PORT, PROXIES_NICK, PROXIES_EDITABLE ) = range(4)
 
 class AboutGUI:
+    "Class to define the 'About' gui."
     def __init__(self):
         gtk.about_dialog_set_url_hook(self.open_link)
         self.dialog = gtk.AboutDialog()
@@ -41,9 +42,7 @@ class AboutGUI:
         self.dialog.set_copyright(_('2007 © UfSoft.org'))
         self.dialog.set_comments(_('Irssi Real-Time Remote Visual '
                                    'Notifications'))
-        license = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                               'LICENSE')
-        self.dialog.set_license(open(license).read())
+        self.dialog.set_license(irssinotifier.__license_text__)
         self.dialog.set_website(irssinotifier.__url__)
         self.dialog.set_website_label(_('Go To Development Site'))
         self.dialog.set_authors(['Pedro Algarvio <ufs@ufsoft.org>'])
@@ -66,8 +65,8 @@ class AboutGUI:
         self.dialog.hide_all()
 
 class TrayApp:
-    def __init__(self, options={}, cfgfile='~/.irssinotifier', notifier=None):
-        self.options = options
+    def __init__(self, options=(), cfgfile='~/.irssinotifier', notifier=None):
+        self.options = options or {}
         self.cfgfile = cfgfile
         self.notifier = notifier
         self.config = ConfigParser.SafeConfigParser()
@@ -150,7 +149,7 @@ class TrayApp:
         menu.append(prefs)
         menu.append(quit)
 
-        quit.connect_object('activate', self.exit, 'quit')
+        quit.connect_object('activate', self.exit_app, 'quit')
         about.connect_object('activate', self.about.show_about, 'about')
         prefs.connect_object('activate', self.show_prefs, 'prefs')
         about.show()
@@ -158,7 +157,7 @@ class TrayApp:
         quit.show()
         return menu
 
-    def exit(self, widget=None):
+    def exit_app(self, widget=None):
         gobject.idle_add(self.notifier.quit)
         self.trayicon.set_visible(False)
         sys.exit(0)

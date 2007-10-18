@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 45 2007-09-04 08:00:12Z s0undt3ch $
+# $Id: notifier.py 51 2007-10-18 16:42:55Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-09-04 09:00:12 +0100 (Tue, 04 Sep 2007) $
-#             $Rev: 45 $
+# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
+#             $Rev: 51 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -36,8 +36,10 @@ pygtk.require('2.0')
 
 IRC_CODES_RE = re.compile(
     #ur'(\\x16|\\x02|\\x1f|\\x0f|\\x[a|c]\d{1}|' + \
-    ur'(\\x02|\\x07|\\x0f|\\x16|\\1d|\\1f|' + \
-    ur'\\x03((\d{1,2},\d{1,2})|(\d{1,2}))?)',
+    #ur'(\\x02|\\x07|\\x0f|\\x16|\\1d|\\1f|' + \
+    #ur'\\x03((\d{1,2},\d{1,2})|(\d{1,2}))?)',
+    ur'(\x02|\x06|\x07|\x11|\x12|\x13|\x0f|\x16|\x1d|\x1f|'
+    ur'\x03((\d{1,2},\d{1,2})|(\d{1,2}))?)',
     re.IGNORECASE
 )
 
@@ -94,7 +96,8 @@ class IrssiProxyNotifier:
         notification.show()
 
     def _strip_irc_codes(self, message):
-        return cgi_escape(eval(re.sub(IRC_CODES_RE, '', repr(message))))
+#        return cgi_escape(eval(re.sub(IRC_CODES_RE, '', repr(message))))
+        return cgi_escape(re.sub(IRC_CODES_RE, '', message))
 
     def _addressing_ownnick(self, event):
         nick = event.source().split('!')[0]

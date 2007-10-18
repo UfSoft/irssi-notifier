@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 38 2007-08-18 23:47:12Z s0undt3ch $
+# $Id: setup.py 51 2007-10-18 16:42:55Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-08-19 00:47:12 +0100 (Sun, 19 Aug 2007) $
-#             $Rev: 38 $
+# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
+#             $Rev: 51 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -14,7 +14,10 @@
 # Please view LICENSE for additional licensing information.
 # =============================================================================
 
+import os
 import sys
+from distutils.command.sdist import sdist
+
 try:
     import irclib
 except ImportError:
@@ -53,6 +56,16 @@ Or, to submit bugs/new features:
     http://irssinotifier.ufsoft.org/
 """
 
+class MySdist(sdist):
+    """Cudtom 'sdist' command to re-write the license file from what's defined
+    on the package."""
+
+    def run(self):
+        license_text = irssinotifier.__license_text__
+        license_file = os.path.join(os.path.dirname(__file__), 'LICENSE')
+        open(license_file, 'w').write(license_text)
+        sdist.run(self)
+
 setup(
     name    = irssinotifier.__package__,
     version = irssinotifier.__version__,
@@ -67,6 +80,9 @@ setup(
     platforms = ['Anywere libnotify and python is known to run'],
     keywords = ['irssi', 'visual notification', 'notification'],
     packages = ['irssinotifier'],
+    package_data = { 'irssinotifier': ['i18n/*/LC_MESSAGES/*.mo', 'data/*.png',
+                                       'data/glade/*.glade']},
+    include_package_data = True,
     zip_safe = False,
     # PyXSS tries to find SWIG on system, if not found installs the pre SWIG
     # version, should we warn the user about this?
@@ -104,5 +120,6 @@ setup(
             ('**.py',    'python', None),
             ('**.glade', 'glade',  None),
         ]
-    }
+    },
+    cmdclass = {'sdist': MySdist}
 )
