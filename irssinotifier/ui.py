@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 51 2007-10-18 16:42:55Z s0undt3ch $
+# $Id: ui.py 53 2007-10-20 19:25:55Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
-#             $Rev: 51 $
+# $LastChangedDate: 2007-10-20 20:25:55 +0100 (Sat, 20 Oct 2007) $
+#             $Rev: 53 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -69,7 +69,7 @@ class TrayApp:
         self.options = options or {}
         self.cfgfile = cfgfile
         self.notifier = notifier
-        self.config = ConfigParser.SafeConfigParser()
+        self.config = ConfigParser.SafeConfigParser(options.__dict__)
         self.config.read(os.path.expanduser(self.cfgfile))
         # Read Glade File
         gladefile = os.path.join(os.path.dirname(__file__), 'data', 'glade',
@@ -158,6 +158,7 @@ class TrayApp:
         return menu
 
     def exit_app(self, widget=None):
+        self.update_config_file()
         gobject.idle_add(self.notifier.quit)
         self.trayicon.set_visible(False)
         sys.exit(0)
@@ -171,6 +172,58 @@ class TrayApp:
         self.notifier.start()
         gobject.timeout_add(500, self.notifier.process)
         gtk.main()
+
+        def update_config_file(self):
+        # Re-Init our config file
+        self.config = ConfigParser.SafeConfigParser()
+        friends = [
+            entry[0] for entry in iter(self.friends_treeview.get_model())
+        ]
+        proxies = [
+            tuple(entry) for entry in iter(self.proxies_treeview.get_model())
+        ]
+        # - Friends
+        if not self.config.has_section('main'):
+            self.config.add_section('main')
+        self.config.set('main', 'friends', ' '.join(friends))
+        # - Proxies
+        proxy_entries = []
+        for entry in proxies:
+            proxy_entries.append(':'.join(entry[:-1]))
+        self.config.set('main', 'proxies', ' '.join(proxy_entries))
+        # - Notification Timeout
+        timeout = self.wTree.get_widget('NotificationTimeOutSpinButton')
+        self.config.set('main', 'timeout', "%d" % timeout.get_value())
+        # - Irssi Proxy Passwd
+        proxy_passwd = self.wTree.get_widget('ProxyPasswdInput')
+        self.config.set('main', 'passwd', proxy_passwd.get_text())
+        # - Debug Mode
+        debug_chkbox = self.wTree.get_widget('DebugModeCheckButton')
+        self.config.set('main', 'debug', "%s" % debug_chkbox.get_active())
+        # - GUI
+        gui_mode = self.wTree.get_widget('RunGuiCheckButton')
+        self.config.set('main', 'gui', "%s" % gui_mode.get_active())
+        # - Language
+        langscb = self.wTree.get_widget('LanguageComboBox')
+        lang_model = langscb.get_model()
+        lang_text = langscb.get_active_text()
+        for language, locale, index in lang_model:
+            if language == lang_text:
+                self.config.set('main', 'language', locale)
+        # - Fallback Charset
+        fbcharset = self.wTree.get_widget('FallbackCharsetInput')
+        self.config.set('main', 'charset', fbcharset.get_text())
+        # - Away-Reason
+        away_reason = self.wTree.get_widget('AwayReasonInput')
+        self.config.set('main', 'away_reason', away_reason.get_text())
+        # - Away Timeout
+        away_timeout = self.wTree.get_widget('AutoAwaySpinButton')
+        self.config.set('main', 'x_away', "%d" % away_timeout.get_value())
+        # - Bitlbee Notification
+        bitlbee = self.wTree.get_widget('BitlbeeCheckButton')
+        self.config.set('main', 'bitlbee', "%s" % bitlbee.get_active())
+        # - Write Configs
+        self.config.write(open(os.path.expanduser(self.cfgfile), 'w'))
 
     def delete_event(self, widget, *args):
         self.win.hide()
@@ -299,7 +352,9 @@ class TrayApp:
         debug_chkbox.set_active(self.options.debug)
         # Set Always in GUI Mode
         gui_mode = self.wTree.get_widget('RunGuiCheckButton')
-        gui_mode.set_active(self.config.getboolean('main', 'gui'))
+        gui_mode.set_active(
+            self.options.gui or self.config.getboolean('main', 'gui')
+        )
         # Set Languages
         langscb = self.wTree.get_widget('LanguageComboBox')
         self._set_languages(langscb)
@@ -391,55 +446,12 @@ class TrayApp:
         self.notifier.friends = friends
         # - Update Proxies
         self.notifier.proxies = proxies
-
-        # Handle Config File
-        # - Friends
-        if not self.config.has_section('main'):
-            self.config.add_section('main')
-        self.config.set('main', 'friends', ' '.join(friends))
-        # - Proxies
-        proxy_entries = []
-        for entry in proxies:
-            proxy_entries.append(':'.join(entry[:-1]))
-        self.config.set('main', 'proxies', ' '.join(proxy_entries))
-        # - Notification Timeout
-        timeout = self.wTree.get_widget('NotificationTimeOutSpinButton')
-        self.config.set('main', 'timeout', "%d" % timeout.get_value())
-        # - Irssi Proxy Passwd
-        proxy_passwd = self.wTree.get_widget('ProxyPasswdInput')
-        self.config.set('main', 'passwd', proxy_passwd.get_text())
-        # - Debug Mode
-        debug_chkbox = self.wTree.get_widget('DebugModeCheckButton')
-        self.config.set('main', 'debug', "%s" % debug_chkbox.get_active())
-        # - GUI
-        gui_mode = self.wTree.get_widget('RunGuiCheckButton')
-        self.config.set('main', 'gui', "%s" % gui_mode.get_active())
-        # - Language
-        langscb = self.wTree.get_widget('LanguageComboBox')
-        lang_model = langscb.get_model()
-        lang_text = langscb.get_active_text()
-        for language, locale, index in lang_model:
-            if language == lang_text:
-                self.config.set('main', 'language', locale)
-        # - Fallback Charset
-        fbcharset = self.wTree.get_widget('FallbackCharsetInput')
-        self.config.set('main', 'charset', fbcharset.get_text())
-        # - Away-Reason
-        away_reason = self.wTree.get_widget('AwayReasonInput')
-        self.config.set('main', 'away_reason', away_reason.get_text())
-        # - Away Timeout
-        away_timeout = self.wTree.get_widget('AutoAwaySpinButton')
-        self.config.set('main', 'x_away', "%d" % away_timeout.get_value())
-        # - Bitlbee Notification
-        bitlbee = self.wTree.get_widget('BitlbeeCheckButton')
-        self.config.set('main', 'bitlbee', "%s" % bitlbee.get_active())
-        # - Write Configs
-        self.config.write(open(os.path.expanduser(self.cfgfile), 'w'))
         self.delete_event(button)
         return True
 
     def on_CancelButton_clicked(self, button):
         self.delete_event(button)
+
 
 def run_tray_app():
     tapp = TrayApp()
