@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 53 2007-10-20 19:25:55Z s0undt3ch $
+# $Id: ui.py 54 2007-10-20 19:27:32Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-10-20 20:25:55 +0100 (Sat, 20 Oct 2007) $
-#             $Rev: 53 $
+# $LastChangedDate: 2007-10-20 20:27:32 +0100 (Sat, 20 Oct 2007) $
+#             $Rev: 54 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -173,7 +173,7 @@ class TrayApp:
         gobject.timeout_add(500, self.notifier.process)
         gtk.main()
 
-        def update_config_file(self):
+    def update_config_file(self):
         # Re-Init our config file
         self.config = ConfigParser.SafeConfigParser()
         friends = [
