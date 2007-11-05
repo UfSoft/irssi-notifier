@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 51 2007-10-18 16:42:55Z s0undt3ch $
+# $Id: notifier.py 56 2007-11-05 19:53:01Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
-#             $Rev: 51 $
+# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
+#             $Rev: 56 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -20,7 +20,7 @@ import sys
 import xss          # This is used to know how long X has been idle
                     # http://bebop.bigasterisk.com/python
 import pygtk
-import irclib
+from irssinotifier import irclib
 import pynotify
 import threading    # This package is used to setup a timer
 try:
@@ -31,27 +31,27 @@ except Exception, error:
 
 pygtk.require('2.0')
 
-#from irssinotifier.translation import _
 
+if '_' not in __builtins__:
+    def _(str):
+        return str
 
 IRC_CODES_RE = re.compile(
-    #ur'(\\x16|\\x02|\\x1f|\\x0f|\\x[a|c]\d{1}|' + \
-    #ur'(\\x02|\\x07|\\x0f|\\x16|\\1d|\\1f|' + \
-    #ur'\\x03((\d{1,2},\d{1,2})|(\d{1,2}))?)',
     ur'(\x02|\x06|\x07|\x11|\x12|\x13|\x0f|\x16|\x1d|\x1f|'
     ur'\x03((\d{1,2},\d{1,2})|(\d{1,2}))?)',
     re.IGNORECASE
 )
 
+
 class IrssiProxyNotifier:
 
-    def __init__(self,passwd, name='', timeout=5, proxies=[], friends=[],
+    def __init__(self, passwd, name='', timeout=5, proxies=(), friends=(),
                  x_away=0, away_reason="", bitlbee=False, charset='latin1'):
         self.passwd = passwd
         self.name = name
         self.timeout = timeout
-        self.proxies = proxies
-        self.friends = friends
+        self.proxies = proxies or []
+        self.friends = friends or []
         self.x_away = x_away
         self.away_reason = away_reason
         self.bitlbee = bitlbee
@@ -100,18 +100,18 @@ class IrssiProxyNotifier:
         return cgi_escape(re.sub(IRC_CODES_RE, '', message))
 
     def _addressing_ownnick(self, event):
-        nick = event.source().split('!')[0]
+        nick = irclib.nm_to_n(event.source())
         message = self._strip_irc_codes(' '.join(event.arguments()).strip())
         return nick in message
 
     def handle_private_messages(self, connection, event):
-        nick = event.source().split('!')[0]
+        nick = irclib.nm_to_n(event.source())
         if nick not in self.nicks:
             header = _("<b>New Private Message:</b>\n")
             message = self._strip_irc_codes(' '.join(event.arguments()).strip())
             message = _("<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:"
                         "</b>\n%(message)s") % \
-                    {'nick': event.source().split('!')[0],
+                    {'nick': irclib.nm_to_n(event.source()),
                      'server': connection.get_server_name().rstrip('.proxy'),
                      'message': message }
             self.notify(header + message)
@@ -134,7 +134,7 @@ class IrssiProxyNotifier:
         if notify:
             message = _("<b>From <i>%(nick)s</i> on <tt>%(channel)"
                         "s(%(server)s)</tt>:</b>\n%(message)s") % \
-                {'nick': event.source().split('!')[0],
+                {'nick': irclib.nm_to_n(event.source()),
                  'channel': event.target(),
                  'server': connection.get_server_name().rstrip('.proxy'),
                  'message': message }
@@ -152,16 +152,16 @@ class IrssiProxyNotifier:
         if notify:
             message = _("<b>From <i>%(nick)s</i> on <tt>%(channel)s"
                         "(%(server)s)</tt>:</b>\n%(message)s") % \
-                {'nick': event.source().split('!')[0],
+                {'nick': irclib.nm_to_n(event.source()),
                  'channel': event.target(),
                  'server': connection.get_server_name().rstrip('.proxy'),
-                 'message': '<i>%s %s</i>' % (event.source().split('!')[0],
+                 'message': '<i>%s %s</i>' % (irclib.nm_to_n(event.source()),
                                               message)}
             self.notify(header + message)
 
 
     def handle_joins(self, connection, event):
-        nick = event.source().split('!')[0]
+        nick = irclib.nm_to_n(event.source())
         if nick in self.friends:
             header = _('<b>Known Friend Has Joined:</b>\n')
             message = _('%(nick)s joined %(channel)s on %(server)s') % {
@@ -171,7 +171,7 @@ class IrssiProxyNotifier:
             self.notify( header + message )
 
     def handle_parts(self, connection, event):
-        nick = event.source().split('!')[0]
+        nick = irclib.nm_to_n(event.source())
         if nick in self.friends:
             header = _('<b>Known Friend Has Parted:</b>\n')
             message = _('%(nick)s parted %(channel)s on %(server)s') % {
@@ -181,16 +181,23 @@ class IrssiProxyNotifier:
             self.notify( header + message )
 
     def handle_quits(self, connection, event):
-        nick = event.source().split('!')[0]
+        nick = irclib.nm_to_n(event.source())
         if nick in self.friends:
-            self.notify(_("%(nick)r has quit!") % {'nick': nick})
+            self.notify(_("'%(nick)s' has quit!") % {'nick': nick})
 
     def handle_nicks(self, connection, event):
         header = _("<b>Known Friend Changed Nick:</b>\n")
         newnick = event.target()
-        oldnick = event.source().split('!')[0]
-        if (oldnick or newnick) in self.friends:
-            message = _("From %(oldnick)r to %(newnick)r on %(server)r") % {
+        oldnick = irclib.nm_to_n(event.source())
+        notify = False
+        if oldnick in self.friends:
+            notify = True
+            header = _("<b>Known Friend Changed Nick:</b>\n")
+        elif newnick in self.friends:
+            notify = True
+            header = _("<b>A User Changed To A Known Friend's Nick:</b>\n")
+        if notify:
+            message = _("From '%(oldnick)s' to '%(newnick)s' on '%(server)s'") % {
                 'oldnick': oldnick,
                 'newnick': newnick,
                 'server': connection.get_server_name().rstrip('.proxy')}
@@ -199,7 +206,7 @@ class IrssiProxyNotifier:
     # This function handles modes changes to know who has come online on
     # bitlbee. A friend is online if he has mode +v on the &bitlbee channel.
     def handle_modes(self, connection, event):
-        sourcenick = event.source().split('!')[0]
+        sourcenick = irclib.nm_to_n(event.source())
         if (self.bitlbee and event.target() == "&bitlbee"
         and sourcenick == "root"):
             modes = irclib.parse_channel_modes(' '.join(event.arguments()))
@@ -268,8 +275,8 @@ class IrssiProxyNotifier:
                     self.notify(_("<b>Connection Failed:</b>\nFailed to "
                                   "connect to %(server)s:%(port)s") % {
                                     'server': server, 'port': port })
-            except irclib.ServerConnectionError, error:
-                print error
+            except irclib.ServerConnectionError, err:
+                print err
                 sys.exit(1)
 
     def start(self):
@@ -279,6 +286,7 @@ class IrssiProxyNotifier:
     def is_connected(self):
         connected = False
         for connection in self.irc.connections:
+            #print connection, connection.__dict__
             if connection.connected:
                 connected = True
         return connected

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 54 2007-10-20 19:27:32Z s0undt3ch $
+# $Id: ui.py 56 2007-11-05 19:53:01Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-10-20 20:27:32 +0100 (Sat, 20 Oct 2007) $
-#             $Rev: 54 $
+# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
+#             $Rev: 56 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -20,8 +20,12 @@ import gtk.glade
 import gobject
 import ConfigParser
 import irssinotifier
-from babel import Locale
+from babel.core import Locale
 import webbrowser
+
+if '_' not in __builtins__:
+    def _(string):
+        return string
 
 gobject.threads_init()
 
@@ -170,7 +174,7 @@ class TrayApp:
     def main(self):
         #gtk.gdk.threads_init()
         self.notifier.start()
-        gobject.timeout_add(500, self.notifier.process)
+        gobject.timeout_add(250, self.notifier.process)
         gtk.main()
 
     def update_config_file(self):

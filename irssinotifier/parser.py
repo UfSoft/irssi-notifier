@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 36 2007-07-24 22:58:35Z s0undt3ch $
+# $Id: parser.py 56 2007-11-05 19:53:01Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-07-24 23:58:35 +0100 (Tue, 24 Jul 2007) $
-#             $Rev: 36 $
+# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
+#             $Rev: 56 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -189,7 +189,7 @@ class IrssiProxyNotifierStartup:
             options.configfile = '~/.irssinotifier'
 
         if options.debug:
-            import irclib
+            from irssinotifier import irclib
             irclib.DEBUG = True
 
         if options.charset:
@@ -318,37 +318,43 @@ class IrssiProxyNotifierStartup:
             ta = TrayApp(options=options, cfgfile=self.cfgfile,
                          notifier=notifier)
 
-            # Fork a new process for the GUI
-            # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/66012
-            try:
-                pid = os.fork()
-                if pid > 0:
-                    # exit first parent
+            if options.debug:
+                try:
+                    ta.main()
+                finally:
+                    ta.exit_app()
                     sys.exit(0)
-            except OSError, e:
-                print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
-                sys.exit(1)
+            else:
+                # Fork a new process for the GUI
+                # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/66012
+                try:
+                    pid = os.fork()
+                    if pid > 0:
+                        # exit first parent
+                        sys.exit(0)
+                except OSError, e:
+                    print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror)
+                    sys.exit(1)
 
-            # decouple from parent environment
-            os.chdir("/")
-            os.setsid()
-            os.umask(0)
+                # decouple from parent environment
+                os.chdir("/")
+                os.setsid()
+                os.umask(0)
 
-            # do second fork
-            try:
-                pid = os.fork()
-                if pid > 0:
-                    # exit from second parent, print eventual PID before
-                    print "Daemon PID %d" % pid
-                    sys.exit(0)
-            except OSError, e:
-                print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
-                sys.exit(1)
+                # do second fork
+                try:
+                    pid = os.fork()
+                    if pid > 0:
+                        # exit from second parent, print eventual PID before
+                        print "Daemon PID %d" % pid
+                        sys.exit(0)
+                except OSError, e:
+                    print >>sys.stderr, "fork #2 failed: %d (%s)" % (e.errno, e.strerror)
+                    sys.exit(1)
 
-            ta.main()
+                ta.main()
         else:
             if options.debug:
-                print
                 try:
                     notifier.start()
                     notifier.process_non_gui()

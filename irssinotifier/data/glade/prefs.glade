@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.0 on Tue Jul 24 17:43:32 2007 by vampas@lgl-->
+<!--Generated with glade3 3.4.0 on Sun Oct 21 18:54:49 2007 -->
 <glade-interface>
   <widget class="GtkDialog" id="PreferencesDialog">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -67,6 +67,7 @@
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">gtk-add</property>
                             <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
                             <signal name="clicked" handler="on_AddProxiesButton_clicked"/>
                           </widget>
                         </child>
@@ -78,14 +79,60 @@
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">gtk-remove</property>
                             <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
                             <signal name="clicked" handler="on_RemoveProxiesButton_clicked"/>
                           </widget>
                           <packing>
                             <property name="position">1</property>
                           </packing>
                         </child>
+                        <child>
+                          <widget class="GtkHBox" id="SpaceHBox">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="homogeneous">True</property>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                        <!--                        <child>
+                          <widget class="GtkButton" id="ConnectAndDisconnectButton">
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="tooltip_markup">Click to &lt;i&gt;connect to&lt;/i&gt; the selected irssi proxy entry</property>
+                            <property name="label" translatable="yes">gtk-connect</property>
+                            <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
+                          </widget>
+                          <packing>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkButton" id="DisconnectButton">
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="tooltip_markup">Click to &lt;i&gt;disconnect from&lt;/i&gt; the selected irssi proxy entry</property>
+                            <property name="label" translatable="yes">gtk-disconnect</property>
+                            <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
+                          </widget>
+                          <packing>
+                            <property name="position">4</property>
+                          </packing>
+                      </child> -->
                       </widget>
-                    </child>
+                  </child>
                     <child>
                       <widget class="GtkLabel" id="ProxiesHelpLabel">
                         <property name="visible">True</property>
@@ -107,9 +154,6 @@
                   </packing>
                 </child>
               </widget>
-              <packing>
-                <property name="tab_expand">False</property>
-              </packing>
             </child>
             <child>
               <widget class="GtkLabel" id="ProxiesTabLabel">
@@ -119,7 +163,6 @@
               </widget>
               <packing>
                 <property name="type">tab</property>
-                <property name="tab_expand">False</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -172,6 +215,7 @@
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">gtk-add</property>
                             <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
                             <signal name="clicked" handler="on_AddFriendsButton_clicked"/>
                           </widget>
                         </child>
@@ -183,6 +227,7 @@
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">gtk-remove</property>
                             <property name="use_stock">True</property>
+                            <property name="response_id">0</property>
                             <signal name="clicked" handler="on_RemoveFriendsButton_clicked"/>
                           </widget>
                           <packing>
@@ -214,7 +259,6 @@
               </widget>
               <packing>
                 <property name="position">1</property>
-                <property name="tab_expand">False</property>
               </packing>
             </child>
             <child>
@@ -226,7 +270,6 @@
               <packing>
                 <property name="type">tab</property>
                 <property name="position">1</property>
-                <property name="tab_expand">False</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -345,6 +388,7 @@
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="tooltip" translatable="yes">Extremely Verbose Output!!!</property>
                         <property name="label" translatable="yes">Debug Mode</property>
+                        <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="on_DebugModeCheckButton_toggled"/>
                       </widget>
@@ -375,6 +419,7 @@
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="label" translatable="yes">Always Run Graphic Interface</property>
                         <property name="xalign">1</property>
+                        <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                       </widget>
                       <packing>
@@ -477,6 +522,7 @@
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="label" translatable="yes">Enable Bitlbee Notifications</property>
+                        <property name="response_id">0</property>
                         <property name="draw_indicator">True</property>
                         <signal name="toggled" handler="on_BitlbeeCheckButton_toggled"/>
                       </widget>
@@ -573,7 +619,6 @@
               </widget>
               <packing>
                 <property name="position">2</property>
-                <property name="tab_expand">False</property>
               </packing>
             </child>
             <child>
@@ -585,7 +630,6 @@
               <packing>
                 <property name="type">tab</property>
                 <property name="position">2</property>
-                <property name="tab_expand">False</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -607,6 +651,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="label" translatable="yes">gtk-ok</property>
                 <property name="use_stock">True</property>
+                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_OkButton_clicked"/>
               </widget>
             </child>
@@ -618,6 +663,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="label" translatable="yes">gtk-cancel</property>
                 <property name="use_stock">True</property>
+                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_CancelButton_clicked"/>
               </widget>
               <packing>

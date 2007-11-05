@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 51 2007-10-18 16:42:55Z s0undt3ch $
+# $Id: setup.py 56 2007-11-05 19:53:01Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
-#             $Rev: 51 $
+# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
+#             $Rev: 56 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -18,13 +18,6 @@ import os
 import sys
 from distutils.command.sdist import sdist
 
-try:
-    import irclib
-except ImportError:
-    print "You need to install irclib"
-    print "On Debian:"
-    print "  sudo apt-get install python-irclib"
-    sys.exit(1)
 try:
     import pynotify
 except ImportError:
