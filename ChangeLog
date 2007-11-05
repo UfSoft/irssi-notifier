@@ -1,6 +1,19 @@
 Irssi Notification 0.2.0 (?/May/2007)
 http://irssinotifier.ufsoft.org/svn/tags/0.2.0
 
+05-11-2007: Pedro Algarvio <ufs@ufsoft.org>
+	* Dropped the `irclib` dependency. We now use our own unicode aware
+	version of irclib.
+	* We now also handle change nick for users that change their nicks into
+	one we have as friend.
+	* The gobject timeout is now lower, meaning, the pop-up message will be
+	faster, less time will pass from the time the user send the message and we
+	get the notification, this still does not mean a higher cpu usage.
+	* If we pass both --gui and --debug we won't fork another process, we keep
+	the same and get the logging on the console.
+	* We now also make use of irclib's helper functions, so, we stop doin' the
+	split stuff to know the nicks. 
+
 18-10-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Fixed broken package. Distribution egg didn't had the compiled message
 	catalogs, nor, the LICENSE file.
