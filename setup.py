@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 56 2007-11-05 19:53:01Z s0undt3ch $
+# $Id: setup.py 62 2007-11-06 23:35:06Z moomoo $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
-#             $Rev: 56 $
-#   $LastChangedBy: s0undt3ch $
+# $LastChangedDate: 2007-11-06 23:35:06 +0000 (Tue, 06 Nov 2007) $
+#             $Rev: 62 $
+#   $LastChangedBy: moomoo $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -18,23 +18,34 @@ import os
 import sys
 from distutils.command.sdist import sdist
 
+deperror = False
+
 try:
     import pynotify
 except ImportError:
     print "You need to install python-notify"
     print "On Debian:"
     print "  sudo apt-get install python-notify"
-    sys.exit(1)
+    deperror = True
 try:
     import pygtk
 except ImportError:
     print "You need to install Python's GTK2 support"
     print "On Debian:"
     print "  sudo apt-get install python-gtk2"
+    deperror = True
+try:
+    from setuptools import setup
+except ImportError:
+    print "You need to install the setuptools"
+    print "On Debian:"
+    print " sudo apt-get install python-setuptools"
+    deperror = True
+
+if deperror:
     sys.exit(1)
 
 import irssinotifier
-from setuptools import setup
 
 LONGDESC = """
 Irssi Notifier is a real-time remote visual notification of private messages,
