@@ -60,7 +60,7 @@ msgstr "<b>Um Amigo Conhecido Ligou-se:</b>\n"
 #: irssinotifier/notifier.py:167
 #, python-format
 msgid "%(nick)s joined %(channel)s on %(server)s"
-msgstr "%(friend)s ligou-se a %(channel)s em %(server)s"
+msgstr "%(nick)s ligou-se a %(channel)s em %(server)s"
 
 #: irssinotifier/notifier.py:176
 msgid "<b>Known Friend Has Parted:</b>\n"
@@ -74,7 +74,7 @@ msgstr "%(nick)s desligou-se de %(channel)s em %(server)s"
 #: irssinotifier/notifier.py:186
 #, python-format
 msgid "'%(nick)s' has quit!"
-msgstr "'%(nick)'s saíu!"
+msgstr "'%(nick)s' saíu!"
 
 #: irssinotifier/notifier.py:189
 #: irssinotifier/notifier.py:195
