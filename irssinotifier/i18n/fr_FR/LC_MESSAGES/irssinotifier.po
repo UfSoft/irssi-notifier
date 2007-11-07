@@ -1,0 +1,248 @@
+# French (France) translations for IrssiNotifier.
+# Copyright (C) 2007 UfSoft.org
+# This file is distributed under the same license as the IrssiNotifier
+# project.
+# David Durrleman <dualmoo@gmail.com>, 2007.
+#
+msgid ""
+msgstr ""
+"Last-Translator: David Durrleman <dualmoo@gmail.com>\n"
+"PO-Revision-Date: 2007-11-07 16:29+0100\n"
+"Report-Msgid-Bugs-To: "
+"http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
+"Project-Id-Version: IrssiNotifier 0.2.0\n"
+"POT-Creation-Date: 2007-11-05 20:01+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: fr_FR <LL@li.org>\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Generated-By: Babel 1.0dev-r325\n"
+"Project-Id-Version: IrssiNotifier 0.2.0\n"
+"Plural-Forms: nplurals=0; null;\n"
+
+#. No need to translate the app name, just leave it blank
+#: irssinotifier/notifier.py:81 irssinotifier/ui.py:43 irssinotifier/ui.py:143
+#: irssinotifier/data/glade/prefs.glade:8
+msgid "Irssi Notifier"
+msgstr ""
+
+#: irssinotifier/notifier.py:110
+msgid "<b>New Private Message:</b>\n"
+msgstr "<b>Nouveau message privé :</b>\n"
+
+#: irssinotifier/notifier.py:112
+#, python-format
+msgid ""
+"<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
+"%(message)s"
+msgstr "<b>De <i>%(nick)s</i><tt>(%(server)s)</tt> :</b>\n"
+"%(message)s"
+
+#: irssinotifier/notifier.py:120
+msgid "<b>New Message:</b>\n"
+msgstr "<b>Nouveau message :</b>\n"
+
+#: irssinotifier/notifier.py:135 irssinotifier/notifier.py:153
+#, python-format
+msgid ""
+"<b>From <i>%(nick)s</i> on <tt>%(channel)s(%(server)s)</tt>:</b>\n"
+"%(message)s"
+msgstr "<b>De <i>%(nick)s</i> sur <tt>%(channel)s(%(server)s)</tt> :</b>\n"
+"%(message)s"
+
+#: irssinotifier/notifier.py:144
+msgid "<b>New IRC Action:</b>\n"
+msgstr "<b>Nouvelle action :</b>\n"
+
+#: irssinotifier/notifier.py:166
+msgid "<b>Known Friend Has Joined:</b>\n"
+msgstr "<b>Un ami s'est connecté :</b>\n"
+
+#: irssinotifier/notifier.py:167
+#, python-format
+msgid "%(nick)s joined %(channel)s on %(server)s"
+msgstr "%(nick)s a rejoint %(channel)s sur %(server)s"
+
+#: irssinotifier/notifier.py:176
+msgid "<b>Known Friend Has Parted:</b>\n"
+msgstr "<b>Un ami s'est déconnecté :</b>\n"
+
+#: irssinotifier/notifier.py:177
+#, python-format
+msgid "%(nick)s parted %(channel)s on %(server)s"
+msgstr "%(nick)s a quitté %(channel)s sur %(server)s"
+
+#: irssinotifier/notifier.py:186
+#, python-format
+msgid "'%(nick)s' has quit!"
+msgstr "'%(nick)s' s'est déconnecté !"
+
+#: irssinotifier/notifier.py:189 irssinotifier/notifier.py:195
+msgid "<b>Known Friend Changed Nick:</b>\n"
+msgstr "<b>Un ami a changé de pseudo :</b>"
+
+#: irssinotifier/notifier.py:198
+msgid "<b>A User Changed To A Known Friend's Nick:</b>\n"
+msgstr "<b>Quelqu'un a pris le pseudo d'un ami :</b>\n"
+
+#: irssinotifier/notifier.py:200
+#, python-format
+msgid "From '%(oldnick)s' to '%(newnick)s' on '%(server)s'"
+msgstr "De '%(oldnick)s' à '%(newnick)s' sur '%(server)s'"
+
+#: irssinotifier/notifier.py:215
+msgid "<b>Contact Is Online</b>\n"
+msgstr "<b>Un contact est en ligne</b>\n"
+
+#: irssinotifier/notifier.py:216
+#, python-format
+msgid "%(nick)s has come online on bitlbee"
+msgstr "%(nick)s est en ligne sur bitlbee"
+
+#: irssinotifier/notifier.py:232
+#, python-format
+msgid "AWAY: %s"
+msgstr ""
+
+#: irssinotifier/notifier.py:236
+msgid "AWAY"
+msgstr ""
+
+#: irssinotifier/notifier.py:271
+#, python-format
+msgid ""
+"<b>Connection Sucessfull:</b>\n"
+"To irssi proxy on %(server)s:%(port)s"
+msgstr "<b>Connexion réussie :</b>\n"
+"Au proxy irssi sur %(server)s:%(port)s"
+
+#: irssinotifier/notifier.py:275
+#, python-format
+msgid ""
+"<b>Connection Failed:</b>\n"
+"Failed to connect to %(server)s:%(port)s"
+msgstr "<b>Echec de la connexion :</b>\n"
+"Connexion échouée à %(server)s:%(port)s"
+
+#: irssinotifier/notifier.py:304 irssinotifier/notifier.py:305
+msgid "Disconnected from server"
+msgstr "Déconnecté du serveur"
+
+#. No need to translate copyright
+#: irssinotifier/ui.py:46
+msgid "2007 © UfSoft.org"
+msgstr ""
+
+#: irssinotifier/ui.py:47
+msgid "Irssi Real-Time Remote Visual Notifications"
+msgstr "Notifications visuelles en temps réel et à distance pour irssi"
+
+#: irssinotifier/ui.py:51
+msgid "Go To Development Site"
+msgstr "Rendez vous sur le site de développement"
+
+#: irssinotifier/ui.py:93
+msgid "<b><i>You need to reload application for changes to take effect.</i></b>"
+msgstr "<b><i>Vous devez relancer l'application pour que vos changements
+soient pris en compte.</i></b>"
+
+#: irssinotifier/ui.py:299 irssinotifier/ui.py:340
+msgid "Nick"
+msgstr "Pseudo"
+
+#: irssinotifier/ui.py:322
+msgid "Address"
+msgstr "Adresse"
+
+#: irssinotifier/ui.py:331
+msgid "Port"
+msgstr "Port"
+
+#: irssinotifier/ui.py:395
+msgid "ADDRESS_HERE"
+msgstr "ADRESSE_ICI"
+
+#: irssinotifier/ui.py:396
+msgid "PORT_HERE"
+msgstr "PORT_ICI"
+
+#: irssinotifier/ui.py:397 irssinotifier/ui.py:407
+msgid "NICK_HERE"
+msgstr "PSEUDO_ICI"
+
+#: irssinotifier/data/glade/prefs.glade:141
+msgid "<i> double-click to edit values </i>"
+msgstr "<i> double cliquez pour éditer </i>"
+
+#: irssinotifier/data/glade/prefs.glade:162
+msgid "Proxies"
+msgstr "Proxies"
+
+#: irssinotifier/data/glade/prefs.glade:244
+msgid "<i> double-click to edit nicks </i>"
+msgstr "<i> double cliquez pour éditer les pseudos </i>"
+
+#: irssinotifier/data/glade/prefs.glade:268
+msgid "Friends"
+msgstr "Amis"
+
+#: irssinotifier/data/glade/prefs.glade:285
+msgid "<b>General Settings</b>"
+msgstr "<b>Paramètres généraux</b>"
+
+#: irssinotifier/data/glade/prefs.glade:300
+msgid "Notification Timeout:"
+msgstr "Durée des notifications :"
+
+#: irssinotifier/data/glade/prefs.glade:325 irssinotifier/data/glade/prefs.glade:603
+msgid "seconds"
+msgstr "seconeds"
+
+#: irssinotifier/data/glade/prefs.glade:352
+msgid "Irssi Proxy Password:"
+msgstr "Mot de passe du proxy irssi :"
+
+#: irssinotifier/data/glade/prefs.glade:389
+msgid "Extremely Verbose Output!!!"
+msgstr "Extrêmement verbeux !!!"
+
+#: irssinotifier/data/glade/prefs.glade:390
+msgid "Debug Mode"
+msgstr "Mode de débug"
+
+#: irssinotifier/data/glade/prefs.glade:420
+msgid "Always Run Graphic Interface"
+msgstr "Toujours afficher l'interface graphique"
+
+#: irssinotifier/data/glade/prefs.glade:445
+msgid "Language:"
+msgstr "Langue :"
+
+#: irssinotifier/data/glade/prefs.glade:476
+msgid "Fallback Charset:"
+msgstr "Charset de repli :"
+
+#: irssinotifier/data/glade/prefs.glade:484
+msgid "Fallback charset in case UTF-8 is not used."
+msgstr "Charset des messages reçus qui ne sont pas en UTF-8"
+
+#: irssinotifier/data/glade/prefs.glade:501
+msgid "<b>Bitlebee Settings</b>"
+msgstr "<b>Paramètres de bitlbee</b>"
+
+#: irssinotifier/data/glade/prefs.glade:524
+msgid "Enable Bitlbee Notifications"
+msgstr "Activer les notifications bitlbee"
+
+#: irssinotifier/data/glade/prefs.glade:548
+msgid "Away Reason:"
+msgstr "Raison d'away :"
+
+#: irssinotifier/data/glade/prefs.glade:579
+msgid "Auto-Away (seconds):"
+msgstr "Away automatique (secondes) :"
+
+#: irssinotifier/data/glade/prefs.glade:628
+msgid "Settings"
+msgstr "Paramètres"
+

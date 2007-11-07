@@ -3,6 +3,7 @@ http://irssinotifier.ufsoft.org/svn/tags/0.2.0
 
 07-11-2007: David Durrleman <dualmoo@gmail.com>
 	* Fixed a few typos, grammar errors, and cosmetic issues
+	* Added french translation
 
 06-11-2007: David Durrleman <dualmoo@gmail.com>
 	* Improved dependency checking in setup.py
