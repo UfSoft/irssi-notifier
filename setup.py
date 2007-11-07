@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 62 2007-11-06 23:35:06Z moomoo $
+# $Id: setup.py 64 2007-11-07 12:45:14Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-11-06 23:35:06 +0000 (Tue, 06 Nov 2007) $
-#             $Rev: 62 $
-#   $LastChangedBy: moomoo $
+# $LastChangedDate: 2007-11-07 12:45:14 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 64 $
+#   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -18,31 +18,31 @@ import os
 import sys
 from distutils.command.sdist import sdist
 
-deperror = False
+DEPERROR = False
 
 try:
-    import pynotify
+    import pynotify    #IGNORE:W0611
 except ImportError:
     print "You need to install python-notify"
     print "On Debian:"
     print "  sudo apt-get install python-notify"
-    deperror = True
+    DEPERROR = True
 try:
-    import pygtk
+    import pygtk    #IGNORE:W0611
 except ImportError:
     print "You need to install Python's GTK2 support"
     print "On Debian:"
     print "  sudo apt-get install python-gtk2"
-    deperror = True
+    DEPERROR = True
 try:
     from setuptools import setup
 except ImportError:
     print "You need to install the setuptools"
     print "On Debian:"
     print " sudo apt-get install python-setuptools"
-    deperror = True
+    DEPERROR = True
 
-if deperror:
+if DEPERROR:
     sys.exit(1)
 
 import irssinotifier
@@ -105,8 +105,6 @@ setup(
     update = babel.messages.frontend:update_catalog
 
     """,
-    #irssi-notifier-gui = irssinotifier.ui:run_tray_app
-    #""",
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Environment :: X11 Applications',

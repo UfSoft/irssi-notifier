@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 56 2007-11-05 19:53:01Z s0undt3ch $
+# $Id: parser.py 64 2007-11-07 12:45:14Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
-#             $Rev: 56 $
+# $LastChangedDate: 2007-11-07 12:45:14 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 64 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -21,6 +21,7 @@ from irssinotifier import __version__ as VERSION
 
 class IrssiProxyNotifierStartup:
     def __init__(self):
+        self.cfgfile = None
         parser = OptionParser(
             usage = "%prog [options]",
             version = "%prog " + VERSION
@@ -106,7 +107,8 @@ class IrssiProxyNotifierStartup:
             action = 'store_true',
             default = False,
             dest = 'bitlbee',
-            help = "Enable notifications of away/joins/quits on a bitlbee server"
+            help = "Enable notifications of away/joins/quits on a "
+                   "bitlbee server"
         )
         # This option is the charset to fallback to when text received is not
         # in UTF-8.
@@ -181,10 +183,10 @@ class IrssiProxyNotifierStartup:
         return self.parser.parse_args()
 
     def run(self):
-        (options, args) = self.parse_args()
+        (options, _) = self.parse_args()
         if options.configfile:
             # We must re-parse
-            (options, args) = self.parse_args(configfile=options.configfile)
+            (options, _) = self.parse_args(configfile=options.configfile)
         else:
             options.configfile = '~/.irssinotifier'
 
