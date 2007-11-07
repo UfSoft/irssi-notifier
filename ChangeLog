@@ -1,8 +1,11 @@
 Irssi Notification 0.2.0 (?/May/2007)
 http://irssinotifier.ufsoft.org/svn/tags/0.2.0
 
-06-11-2007: David Durrleman <dualmoo@gmail.com>:
-	* Improved dependency checking.
+07-11-2007: David Durrleman <dualmoo@gmail.com>
+	* Fixed a few typos, grammar errors, and cosmetic issues
+
+06-11-2007: David Durrleman <dualmoo@gmail.com>
+	* Improved dependency checking in setup.py
 
 05-11-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Dropped the `irclib` dependency. We now use our own unicode aware
@@ -70,4 +73,3 @@ http://www.python.org/pypi/IrssiNotifier/0.1.1
 	* Fixed a bug regarding private messages notification.
 	Whitin a private conversation, even our own messages were beeing notified
 	to us.
-

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: __init__.py 51 2007-10-18 16:42:55Z s0undt3ch $
+# $Id: __init__.py 69 2007-11-07 14:06:59Z moomoo $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/__init__.py $
-# $LastChangedDate: 2007-10-18 17:42:55 +0100 (Thu, 18 Oct 2007) $
-#             $Rev: 51 $
-#   $LastChangedBy: s0undt3ch $
+# $LastChangedDate: 2007-11-07 14:06:59 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 69 $
+#   $LastChangedBy: moomoo $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -49,4 +49,3 @@ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-

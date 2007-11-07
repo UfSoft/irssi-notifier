@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 64 2007-11-07 12:45:14Z s0undt3ch $
+# $Id: setup.py 69 2007-11-07 14:06:59Z moomoo $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-11-07 12:45:14 +0000 (Wed, 07 Nov 2007) $
-#             $Rev: 64 $
-#   $LastChangedBy: s0undt3ch $
+# $LastChangedDate: 2007-11-07 14:06:59 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 69 $
+#   $LastChangedBy: moomoo $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -19,7 +19,6 @@ import sys
 from distutils.command.sdist import sdist
 
 DEPERROR = False
-
 try:
     import pynotify    #IGNORE:W0611
 except ImportError:
@@ -41,7 +40,6 @@ except ImportError:
     print "On Debian:"
     print " sudo apt-get install python-setuptools"
     DEPERROR = True
-
 if DEPERROR:
     sys.exit(1)
 
