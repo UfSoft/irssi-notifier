@@ -16,7 +16,7 @@
 #
 # keltus <keltus@users.sourceforge.net>
 #
-# $Id: irclib.py 56 2007-11-05 19:53:01Z s0undt3ch $
+# $Id: irclib.py 72 2007-11-07 17:25:16Z s0undt3ch $
 
 """irclib -- Internet Relay Chat (IRC) protocol client library.
 
@@ -88,6 +88,7 @@ DEBUG = 0
 # ERROR from the server triggers the error event and the disconnect event.
 # dropping of the connection triggers the disconnect event.
 
+FALLBACK_CHARSET = None
 def to_unicode(txt):
     if isinstance(txt, (list, tuple)):
         txt = ''.join(txt)
@@ -95,13 +96,13 @@ def to_unicode(txt):
         if isinstance(txt, unicode):
             return txt
         try:
-            return unicode(txt, 'utf-8')
+            return unicode(txt, 'utf-8', 'replace')
         except UnicodeDecodeError:
             import locale
             encoding = locale.getpreferredencoding()
-            return unicode(txt, encoding)
+            return unicode(txt, encoding, 'replace')
         else:
-            return unicode(txt, 'iso-8859-15')
+            return unicode(txt, FALLBACK_CHARSET, 'replace')
     return txt
 
 class IRCError(Exception):

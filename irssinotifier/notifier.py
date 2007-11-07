@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 56 2007-11-05 19:53:01Z s0undt3ch $
+# $Id: notifier.py 72 2007-11-07 17:25:16Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-11-05 19:53:01 +0000 (Mon, 05 Nov 2007) $
-#             $Rev: 56 $
+# $LastChangedDate: 2007-11-07 17:25:16 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 72 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -57,6 +57,7 @@ class IrssiProxyNotifier:
         self.bitlbee = bitlbee
         self.timer = None
         self.charset = charset
+        irclib.FALLBACK_CHARSET = charset
         self.irc = irclib.IRC()
         self.nicks = []
         # We should only need to handle these

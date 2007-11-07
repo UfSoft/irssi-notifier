@@ -6,23 +6,22 @@
 #
 msgid ""
 msgstr ""
-"Last-Translator: Pedro Algarvio <ufs@ufsoft.org>\n"
-"PO-Revision-Date: 2007-11-05 20:02+0000\n"
-"Report-Msgid-Bugs-To: http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
-"POT-Creation-Date: 2007-07-13 11:44+0100\n"
-"MIME-Version: 1.0\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language-Team: pt_PT <LL@li.org>\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Generated-By: Babel 1.0dev-r325\n"
 "Project-Id-Version: IrssiNotifier 0.2.0\n"
-"Plural-Forms: nplurals=0; null;\n"
+"Report-Msgid-Bugs-To: "
+"http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
+"POT-Creation-Date: 2007-07-13 11:44+0100\n"
+"PO-Revision-Date: 2007-11-07 15:42+0000\n"
+"Last-Translator: Pedro Algarvio <ufs@ufsoft.org>\n"
+"Language-Team: pt_PT <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev-r325\n"
 
-#: irssinotifier/notifier.py:81
-#: irssinotifier/ui.py:43
-#: irssinotifier/ui.py:143
-#: irssinotifier/data/glade/prefs.glade:8
 #. No need to translate the app name, just leave it blank
+#: irssinotifier/notifier.py:81 irssinotifier/ui.py:43 irssinotifier/ui.py:143
+#: irssinotifier/data/glade/prefs.glade:8
 msgid "Irssi Notifier"
 msgstr ""
 
@@ -32,21 +31,24 @@ msgstr "<b>Nova Mensagem Privada:</b>\n"
 
 #: irssinotifier/notifier.py:112
 #, python-format
-msgid "<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
+msgid ""
+"<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
 "%(message)s"
-msgstr "<b>De <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
+msgstr ""
+"<b>De <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
 "%(message)s"
 
 #: irssinotifier/notifier.py:120
 msgid "<b>New Message:</b>\n"
 msgstr "<b>Nova Mensagem:</b>\n"
 
-#: irssinotifier/notifier.py:135
-#: irssinotifier/notifier.py:153
+#: irssinotifier/notifier.py:135 irssinotifier/notifier.py:153
 #, python-format
-msgid "<b>From <i>%(nick)s</i> on <tt>%(channel)s(%(server)s)</tt>:</b>\n"
+msgid ""
+"<b>From <i>%(nick)s</i> on <tt>%(channel)s(%(server)s)</tt>:</b>\n"
 "%(message)s"
-msgstr "<b>De <i>%(nick)s</i> em <tt>%(channel)s(%(server)s)</tt>:</b>\n"
+msgstr ""
+"<b>De <i>%(nick)s</i> em <tt>%(channel)s(%(server)s)</tt>:</b>\n"
 "%(message)s"
 
 #: irssinotifier/notifier.py:144
@@ -76,8 +78,7 @@ msgstr "%(nick)s desligou-se de %(channel)s em %(server)s"
 msgid "'%(nick)s' has quit!"
 msgstr "'%(nick)s' saíu!"
 
-#: irssinotifier/notifier.py:189
-#: irssinotifier/notifier.py:195
+#: irssinotifier/notifier.py:189 irssinotifier/notifier.py:195
 msgid "<b>Known Friend Changed Nick:</b>\n"
 msgstr "<b>Um Amigo Conhecido Mudou de Nick:</b>\n"
 
@@ -109,26 +110,29 @@ msgid "AWAY"
 msgstr ""
 
 #: irssinotifier/notifier.py:271
-#, python-format
-msgid "<b>Connection Sucessfull:</b>\n"
+#, fuzzy, python-format
+msgid ""
+"<b>Connection Sucessfull:</b>\n"
 "To irssi proxy on %(server)s:%(port)s"
-msgstr "<b>Sucesso na Ligação:</b>\n"
+msgstr ""
+"<b>Sucesso na Ligação:</b>\n"
 "Ao proxy de irssi em %(server)s:%(port)s"
 
 #: irssinotifier/notifier.py:275
-#, python-format
-msgid "<b>Connection Failed:</b>\n"
+#, fuzzy, python-format
+msgid ""
+"<b>Connection Failed:</b>\n"
 "Failed to connect to %(server)s:%(port)s"
-msgstr "<b>Ligação Falhou:</b>\n"
+msgstr ""
+"<b>Ligação Falhou:</b>\n"
 "Ligação a %(server)s:%(port)s falhou"
 
-#: irssinotifier/notifier.py:304
-#: irssinotifier/notifier.py:305
+#: irssinotifier/notifier.py:304 irssinotifier/notifier.py:305
 msgid "Disconnected from server"
 msgstr "Desligado do servidor"
 
-#: irssinotifier/ui.py:46
 #. No need to translate copyright
+#: irssinotifier/ui.py:46
 msgid "2007 © UfSoft.org"
 msgstr ""
 
@@ -142,11 +146,9 @@ msgstr "Ir Para o Site de Desenvolvimento"
 
 #: irssinotifier/ui.py:93
 msgid "<b><i>You need to reload application for changes to take effect.</i></b>"
-msgstr "<b><i>Tem que reiniciar a aplicação para as modificações terem"
-"efeito.</i></b>"
+msgstr "<b><i>Tem que reiniciar a aplicação para as modificações terem efeito.</i></b>"
 
-#: irssinotifier/ui.py:299
-#: irssinotifier/ui.py:340
+#: irssinotifier/ui.py:299 irssinotifier/ui.py:340
 msgid "Nick"
 msgstr "Alcunha"
 
@@ -166,8 +168,7 @@ msgstr "ENDEREÇO_AQUI"
 msgid "PORT_HERE"
 msgstr "PORTO_AQUI"
 
-#: irssinotifier/ui.py:397
-#: irssinotifier/ui.py:407
+#: irssinotifier/ui.py:397 irssinotifier/ui.py:407
 msgid "NICK_HERE"
 msgstr "ALCUNHA_AQUI"
 

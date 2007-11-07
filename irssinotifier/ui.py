@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: ui.py 67 2007-11-07 13:01:17Z s0undt3ch $
+# $Id: ui.py 72 2007-11-07 17:25:16Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/ui.py $
-# $LastChangedDate: 2007-11-07 13:01:17 +0000 (Wed, 07 Nov 2007) $
-#             $Rev: 67 $
+# $LastChangedDate: 2007-11-07 17:25:16 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 72 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -49,9 +49,14 @@ class AboutGUI:
         self.dialog.set_license(irssinotifier.__license_text__)
         self.dialog.set_website(irssinotifier.__url__)
         self.dialog.set_website_label(_('Go To Development Site'))
-        self.dialog.set_authors(['Pedro Algarvio <ufs@ufsoft.org>',
-                                 'David Durrleman <dualmoo@gmail.com>'])
-        self.dialog.set_translator_credits('Pedro Algarvio <ufs@ufsoft.org>')
+        self.dialog.set_authors([
+            'Pedro Algarvio <ufs@ufsoft.org>',
+            'David Durrleman <dualmoo@gmail.com>'
+        ])
+        self.dialog.set_translator_credits(
+            'pt_PT: Pedro Algarvio <ufs@ufsoft.org>\n'
+            'fr_FR: David Durrleman <dualmoo@gmail.com>'
+        )
         img = gtk.gdk.pixbuf_new_from_file(
             os.path.join(os.path.dirname(__file__), 'data', 'irssi.png')
         )

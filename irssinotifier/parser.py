@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: parser.py 64 2007-11-07 12:45:14Z s0undt3ch $
+# $Id: parser.py 72 2007-11-07 17:25:16Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/parser.py $
-# $LastChangedDate: 2007-11-07 12:45:14 +0000 (Wed, 07 Nov 2007) $
-#             $Rev: 64 $
+# $LastChangedDate: 2007-11-07 17:25:16 +0000 (Wed, 07 Nov 2007) $
+#             $Rev: 72 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -122,9 +122,8 @@ class IrssiProxyNotifierStartup:
         parser.add_option(
             '--language', '-l',
             dest='language',
-            default='en',
             help="Use the specified language translation. "
-                 "Available Languages: 'en', 'pt_PT'; Default: %default"
+                 "Available Languages: 'en', 'fr_FR', 'pt_PT'"
         )
         parser.add_option(
             '--write-configs', '-W',
@@ -297,6 +296,16 @@ class IrssiProxyNotifierStartup:
                 "You must pass at least one irssi-proxy addr:port"
             )
 
+        if not options.language:
+            from locale import getdefaultlocale
+            language = getdefaultlocale()[0]
+            if language in ('en', 'en_GB', 'en_US'):
+                language = 'en'
+            if language in ('en', 'fr_FR', 'pt_PT'):
+                options.language = language
+        elif options.language:
+            if not options.language in ('en', 'fr_FR', 'pt_PT'):
+                self.parser.error('Language not supported')
 
         from irssinotifier.translation import set_lang
         set_lang(options.language, charset, options.gui)
