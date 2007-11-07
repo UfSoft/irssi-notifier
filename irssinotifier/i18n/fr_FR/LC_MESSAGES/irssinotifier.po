@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
 "POT-Creation-Date: 2007-11-05 20:01+0000\n"
-"PO-Revision-Date: 2007-11-07 17:50+0000\n"
+"PO-Revision-Date: 2007-11-07 19:14+0100\n"
 "Last-Translator: David Durrleman <dualmoo@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: irssinotifier/notifier.py:111
 msgid "<b>New Private Message:</b>\n"
-msgstr "<b>Nouveau message privé:</b>\n"
+msgstr "<b>Nouveau message privé :</b>\n"
 
 #: irssinotifier/notifier.py:113
 #, python-format
@@ -35,12 +35,12 @@ msgid ""
 "<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
 "%(message)s"
 msgstr ""
-"<b>De <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
+"<b>De <i>%(nick)s</i><tt>(%(server)s)</tt> :</b>\n"
 "%(message)s"
 
 #: irssinotifier/notifier.py:121
 msgid "<b>New Message:</b>\n"
-msgstr "<b>Nouveau message:</b>\n"
+msgstr "<b>Nouveau message :</b>\n"
 
 #: irssinotifier/notifier.py:136 irssinotifier/notifier.py:154
 #, python-format
@@ -48,16 +48,16 @@ msgid ""
 "<b>From <i>%(nick)s</i> on <tt>%(channel)s(%(server)s)</tt>:</b>\n"
 "%(message)s"
 msgstr ""
-"<b>De <i>%(nick)s</i> sur <tt>%(channel)s(%(server)s)</tt>:</b>\n"
+"<b>De <i>%(nick)s</i> sur <tt>%(channel)s(%(server)s)</tt> :</b>\n"
 "%(message)s"
 
 #: irssinotifier/notifier.py:145
 msgid "<b>New IRC Action:</b>\n"
-msgstr "<b>Nouvelle action:</b>\n"
+msgstr "<b>Nouvelle action :</b>\n"
 
 #: irssinotifier/notifier.py:167
 msgid "<b>Known Friend Has Joined:</b>\n"
-msgstr "<b>Un ami s'est connecté:</b>\n"
+msgstr "<b>Un ami s'est connecté :</b>\n"
 
 #: irssinotifier/notifier.py:168
 #, python-format
@@ -66,7 +66,7 @@ msgstr "%(nick)s a rejoint %(channel)s sur %(server)s"
 
 #: irssinotifier/notifier.py:177
 msgid "<b>Known Friend Has Parted:</b>\n"
-msgstr "<b>Un ami s'est déconnecté:</b>\n"
+msgstr "<b>Un ami s'est déconnecté :</b>\n"
 
 #: irssinotifier/notifier.py:178
 #, python-format
@@ -76,15 +76,15 @@ msgstr "%(nick)s a quitté %(channel)s sur %(server)s"
 #: irssinotifier/notifier.py:187
 #, python-format
 msgid "'%(nick)s' has quit!"
-msgstr "'%(nick)s' s'est déconnecté!"
+msgstr "'%(nick)s' s'est déconnecté !"
 
 #: irssinotifier/notifier.py:190 irssinotifier/notifier.py:196
 msgid "<b>Known Friend Changed Nick:</b>\n"
-msgstr "<b>Un ami a changé de pseudo:</b>"
+msgstr "<b>Un ami a changé de pseudo :</b>"
 
 #: irssinotifier/notifier.py:199
 msgid "<b>A User Changed To A Known Friend's Nick:</b>\n"
-msgstr "<b>Quelqu'un a pris le pseudo d'un ami:</b>\n"
+msgstr "<b>Quelqu'un a pris le pseudo d'un ami :</b>\n"
 
 #: irssinotifier/notifier.py:201
 #, python-format
@@ -115,7 +115,7 @@ msgid ""
 "<b>Connection Sucessfull:</b>\n"
 "To irssi proxy on %(server)s:%(port)s"
 msgstr ""
-"<b>Connexion réussie:</b>\n"
+"<b>Connexion réussie :</b>\n"
 "Au proxy irssi sur %(server)s:%(port)s"
 
 #: irssinotifier/notifier.py:276
@@ -124,7 +124,7 @@ msgid ""
 "<b>Connection Failed:</b>\n"
 "Failed to connect to %(server)s:%(port)s"
 msgstr ""
-"<b>Echec de la connexion:</b>\n"
+"<b>Echec de la connexion :</b>\n"
 "Connexion échouée à %(server)s:%(port)s"
 
 #: irssinotifier/notifier.py:305 irssinotifier/notifier.py:306
@@ -174,7 +174,7 @@ msgstr "PSEUDO_ICI"
 
 #: irssinotifier/data/glade/prefs.glade:141
 msgid "<i> double-click to edit values </i>"
-msgstr "<i> double cliquez pour éditer </i>"
+msgstr "<i> double-cliquez pour éditer </i>"
 
 #: irssinotifier/data/glade/prefs.glade:162
 msgid "Proxies"
@@ -182,7 +182,7 @@ msgstr "Proxies"
 
 #: irssinotifier/data/glade/prefs.glade:244
 msgid "<i> double-click to edit nicks </i>"
-msgstr "<i> double cliquez pour éditer les pseudos </i>"
+msgstr "<i> double-cliquez pour éditer les pseudos </i>"
 
 #: irssinotifier/data/glade/prefs.glade:268
 msgid "Friends"
@@ -194,20 +194,20 @@ msgstr "<b>Paramètres généraux</b>"
 
 #: irssinotifier/data/glade/prefs.glade:300
 msgid "Notification Timeout:"
-msgstr "Durée des notifications:"
+msgstr "Durée des notifications :"
 
 #: irssinotifier/data/glade/prefs.glade:325
 #: irssinotifier/data/glade/prefs.glade:603
 msgid "seconds"
-msgstr "seconeds"
+msgstr "secondes"
 
 #: irssinotifier/data/glade/prefs.glade:352
 msgid "Irssi Proxy Password:"
-msgstr "Mot de passe du proxy irssi:"
+msgstr "Mot de passe du proxy irssi :"
 
 #: irssinotifier/data/glade/prefs.glade:389
 msgid "Extremely Verbose Output!!!"
-msgstr "Extrêmement verbeux!!!"
+msgstr "Extrêmement verbeux !!!"
 
 #: irssinotifier/data/glade/prefs.glade:390
 msgid "Debug Mode"
@@ -219,11 +219,11 @@ msgstr "Toujours afficher l'interface graphique"
 
 #: irssinotifier/data/glade/prefs.glade:445
 msgid "Language:"
-msgstr "Langue:"
+msgstr "Langue :"
 
 #: irssinotifier/data/glade/prefs.glade:476
 msgid "Fallback Charset:"
-msgstr "Charset de repli:"
+msgstr "Charset de repli :"
 
 #: irssinotifier/data/glade/prefs.glade:484
 msgid "Fallback charset in case UTF-8 is not used."
@@ -239,11 +239,11 @@ msgstr "Activer les notifications bitlbee"
 
 #: irssinotifier/data/glade/prefs.glade:548
 msgid "Away Reason:"
-msgstr "Raison d'away:"
+msgstr "Raison d'away :"
 
 #: irssinotifier/data/glade/prefs.glade:579
 msgid "Auto-Away (seconds):"
-msgstr "Away automatique (secondes):"
+msgstr "Away automatique (secondes) :"
 
 #: irssinotifier/data/glade/prefs.glade:628
 msgid "Settings"
