@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: IrssiNotifier 0.2.0\n"
 "Report-Msgid-Bugs-To: "
 "http://irssinotifier.ufsoft.org/newticket?field_component=Translations\n"
-"POT-Creation-Date: 2007-11-05 20:01+0000\n"
+"POT-Creation-Date: 2007-11-07 17:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,106 +19,106 @@ msgstr ""
 "Generated-By: Babel 1.0dev-r325\n"
 
 #. No need to translate the app name, just leave it blank
-#: irssinotifier/notifier.py:81 irssinotifier/ui.py:43 irssinotifier/ui.py:143
+#: irssinotifier/notifier.py:82 irssinotifier/ui.py:43 irssinotifier/ui.py:149
 #: irssinotifier/data/glade/prefs.glade:8
 msgid "Irssi Notifier"
 msgstr ""
 
-#: irssinotifier/notifier.py:110
+#: irssinotifier/notifier.py:111
 msgid "<b>New Private Message:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:112
+#: irssinotifier/notifier.py:113
 #, python-format
 msgid ""
 "<b>From <i>%(nick)s</i><tt>(%(server)s)</tt>:</b>\n"
 "%(message)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:120
+#: irssinotifier/notifier.py:121
 msgid "<b>New Message:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:135 irssinotifier/notifier.py:153
+#: irssinotifier/notifier.py:136 irssinotifier/notifier.py:154
 #, python-format
 msgid ""
 "<b>From <i>%(nick)s</i> on <tt>%(channel)s(%(server)s)</tt>:</b>\n"
 "%(message)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:144
+#: irssinotifier/notifier.py:145
 msgid "<b>New IRC Action:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:166
+#: irssinotifier/notifier.py:167
 msgid "<b>Known Friend Has Joined:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:167
+#: irssinotifier/notifier.py:168
 #, python-format
 msgid "%(nick)s joined %(channel)s on %(server)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:176
+#: irssinotifier/notifier.py:177
 msgid "<b>Known Friend Has Parted:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:177
+#: irssinotifier/notifier.py:178
 #, python-format
 msgid "%(nick)s parted %(channel)s on %(server)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:186
+#: irssinotifier/notifier.py:187
 #, python-format
 msgid "'%(nick)s' has quit!"
 msgstr ""
 
-#: irssinotifier/notifier.py:189 irssinotifier/notifier.py:195
+#: irssinotifier/notifier.py:190 irssinotifier/notifier.py:196
 msgid "<b>Known Friend Changed Nick:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:198
+#: irssinotifier/notifier.py:199
 msgid "<b>A User Changed To A Known Friend's Nick:</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:200
+#: irssinotifier/notifier.py:201
 #, python-format
 msgid "From '%(oldnick)s' to '%(newnick)s' on '%(server)s'"
 msgstr ""
 
-#: irssinotifier/notifier.py:215
+#: irssinotifier/notifier.py:216
 msgid "<b>Contact Is Online</b>\n"
 msgstr ""
 
-#: irssinotifier/notifier.py:216
+#: irssinotifier/notifier.py:217
 #, python-format
 msgid "%(nick)s has come online on bitlbee"
 msgstr ""
 
-#: irssinotifier/notifier.py:232
+#: irssinotifier/notifier.py:233
 #, python-format
 msgid "AWAY: %s"
 msgstr ""
 
-#: irssinotifier/notifier.py:236
+#: irssinotifier/notifier.py:237
 msgid "AWAY"
 msgstr ""
 
-#: irssinotifier/notifier.py:271
+#: irssinotifier/notifier.py:272
 #, python-format
 msgid ""
 "<b>Connection Sucessfull:</b>\n"
 "To irssi proxy on %(server)s:%(port)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:275
+#: irssinotifier/notifier.py:276
 #, python-format
 msgid ""
 "<b>Connection Failed:</b>\n"
 "Failed to connect to %(server)s:%(port)s"
 msgstr ""
 
-#: irssinotifier/notifier.py:304 irssinotifier/notifier.py:305
+#: irssinotifier/notifier.py:305 irssinotifier/notifier.py:306
 msgid "Disconnected from server"
 msgstr ""
 
@@ -135,31 +135,31 @@ msgstr ""
 msgid "Go To Development Site"
 msgstr ""
 
-#: irssinotifier/ui.py:93
+#: irssinotifier/ui.py:99
 msgid "<b><i>You need to reload application for changes to take effect.</i></b>"
 msgstr ""
 
-#: irssinotifier/ui.py:299 irssinotifier/ui.py:340
+#: irssinotifier/ui.py:305 irssinotifier/ui.py:346
 msgid "Nick"
 msgstr ""
 
-#: irssinotifier/ui.py:322
+#: irssinotifier/ui.py:328
 msgid "Address"
 msgstr ""
 
-#: irssinotifier/ui.py:331
+#: irssinotifier/ui.py:337
 msgid "Port"
 msgstr ""
 
-#: irssinotifier/ui.py:395
+#: irssinotifier/ui.py:401
 msgid "ADDRESS_HERE"
 msgstr ""
 
-#: irssinotifier/ui.py:396
+#: irssinotifier/ui.py:402
 msgid "PORT_HERE"
 msgstr ""
 
-#: irssinotifier/ui.py:397 irssinotifier/ui.py:407
+#: irssinotifier/ui.py:403 irssinotifier/ui.py:413
 msgid "NICK_HERE"
 msgstr ""
 
