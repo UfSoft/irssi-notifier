@@ -1,6 +1,9 @@
 Irssi Notification 0.2.0 (?/May/2007)
 http://irssinotifier.ufsoft.org/svn/tags/0.2.0
 
+06-11-2007: David Durrleman <dualmoo@gmail.com>:
+	* Improved dependency checking.
+
 05-11-2007: Pedro Algarvio <ufs@ufsoft.org>
 	* Dropped the `irclib` dependency. We now use our own unicode aware
 	version of irclib.
