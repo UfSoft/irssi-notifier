@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 72 2007-11-07 17:25:16Z s0undt3ch $
+# $Id: notifier.py 78 2007-11-30 15:49:54Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-11-07 17:25:16 +0000 (Wed, 07 Nov 2007) $
-#             $Rev: 72 $
+# $LastChangedDate: 2007-11-30 15:49:54 +0000 (Fri, 30 Nov 2007) $
+#             $Rev: 78 $
 #   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
@@ -23,14 +23,10 @@ import pygtk
 from irssinotifier import irclib
 import pynotify
 import threading    # This package is used to setup a timer
-try:
-    pynotify.init("Markup")
-except Exception, error:
-    print "Failed to init python-notify 'Markup'"
-    print error
 
 pygtk.require('2.0')
 
+import dbus
 
 if '_' not in __builtins__:
     def _(str):
@@ -78,6 +74,10 @@ class IrssiProxyNotifier:
             self.irc.add_global_handler('unaway', self.handle_away)
             self.tracker = xss.IdleTracker(idle_threshold=x_away)
 
+        bus = dbus.SessionBus().get_object('org.freedesktop.Notifications',
+                                           '/org/freedesktop/Notifications')
+        self.bus = dbus.Interface(bus, 'org.freedesktop.Notifications')
+
     # TRANSLATOR: No need to translate the app name, just leave it blank
     def notify(self, message, header=_('Irssi Notifier')):
         if isinstance(message, list):
@@ -92,12 +92,12 @@ class IrssiProxyNotifier:
                 message = unicode(message, self.charset)
 
         uri = os.path.join(os.path.dirname(__file__), 'data', 'irssi_mini.png')
-        notification = pynotify.Notification(header, message.strip(), uri)
-        notification.set_timeout(self.timeout)
-        notification.show()
+        self.bus.Notify("Irssi Notifier", 0, uri,
+                        header, message.strip(), {}, {},
+                        self.timeout)
+
 
     def _strip_irc_codes(self, message):
-#        return cgi_escape(eval(re.sub(IRC_CODES_RE, '', repr(message))))
         return cgi_escape(re.sub(IRC_CODES_RE, '', message))
 
     def _addressing_ownnick(self, event):

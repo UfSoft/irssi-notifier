@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: setup.py 69 2007-11-07 14:06:59Z moomoo $
+# $Id: setup.py 78 2007-11-30 15:49:54Z s0undt3ch $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/setup.py $
-# $LastChangedDate: 2007-11-07 14:06:59 +0000 (Wed, 07 Nov 2007) $
-#             $Rev: 69 $
-#   $LastChangedBy: moomoo $
+# $LastChangedDate: 2007-11-30 15:49:54 +0000 (Fri, 30 Nov 2007) $
+#             $Rev: 78 $
+#   $LastChangedBy: s0undt3ch $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -20,11 +20,11 @@ from distutils.command.sdist import sdist
 
 DEPERROR = False
 try:
-    import pynotify    #IGNORE:W0611
+    import dbus     #IGNORE:W0611
 except ImportError:
-    print "You need to install python-notify"
+    print "You need to install python-dbus"
     print "On Debian:"
-    print "  sudo apt-get install python-notify"
+    print "  sudo apt-get install python-dbus"
     DEPERROR = True
 try:
     import pygtk    #IGNORE:W0611
