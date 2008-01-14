@@ -1,6 +1,10 @@
 Irssi Notification 0.2.0 (?/May/2007)
 http://irssinotifier.ufsoft.org/svn/tags/0.2.0
 
+14-01-2008: David Durrleman <dualmoo@gmail.com>
+	* Added gentoo ebuilds
+	* Removed dependency to pynotify in notifier.py
+
 07-11-2007: David Durrleman <dualmoo@gmail.com>
 	* Fixed a few typos, grammar errors, and cosmetic issues
 	* Added french translation

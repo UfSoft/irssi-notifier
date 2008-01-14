@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # vim: sw=4 ts=4 fenc=utf-8
 # =============================================================================
-# $Id: notifier.py 78 2007-11-30 15:49:54Z s0undt3ch $
+# $Id: notifier.py 80 2008-01-14 03:30:32Z moomoo $
 # =============================================================================
 #             $URL: http://irssinotifier.ufsoft.org/svn/trunk/irssinotifier/notifier.py $
-# $LastChangedDate: 2007-11-30 15:49:54 +0000 (Fri, 30 Nov 2007) $
-#             $Rev: 78 $
-#   $LastChangedBy: s0undt3ch $
+# $LastChangedDate: 2008-01-14 03:30:32 +0000 (Mon, 14 Jan 2008) $
+#             $Rev: 80 $
+#   $LastChangedBy: moomoo $
 # =============================================================================
 # Copyright (C) 2007 UfSoft.org - Pedro Algarvio <ufs@ufsoft.org>
 #
@@ -21,7 +21,6 @@ import xss          # This is used to know how long X has been idle
                     # http://bebop.bigasterisk.com/python
 import pygtk
 from irssinotifier import irclib
-import pynotify
 import threading    # This package is used to setup a timer
 
 pygtk.require('2.0')
