@@ -8,8 +8,7 @@ DESCRIPTION="Irssi Real Time Remote Visual Notification."
 HOMEPAGE="http://irssinotifier.ufsoft.org/"
 ESVN_REPO_URI="http://irssinotifier.ufsoft.org/svn/trunk/"
 
-RDEPEND="dev-python/python-irclib
-         dev-python/dbus-python
+RDEPEND="dev-python/dbus-python
          dev-python/PyXSS
          dev-python/Babel"
 DEPEND="${RDEPEND}
@@ -30,8 +29,8 @@ src_unpack() {
 }
 
 src_compile() {
-	${python} setup.py compile || die "messages compilation failed"
 	distutils_src_compile
+	${python} setup.py compile || die "messages compilation failed"
 }
 
 src_install() {
